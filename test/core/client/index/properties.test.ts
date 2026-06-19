@@ -4,7 +4,7 @@ import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 describe('properties', () => {
   let component: CodeInspectorComponent;
-  
+
   beforeEach(() => {
     // 创建组件实例
     component = new CodeInspectorComponent();
@@ -22,10 +22,8 @@ describe('properties', () => {
     expect(component.showSwitch).toBe(false);
     expect(component.autoToggle).toBe(false);
     expect(component.hideConsole).toBe(false);
-    expect(component.locate).toBe(true);
-    expect(component.copy).toBe(false);
-    expect(component.target).toBe('');
     expect(component.ip).toBe('localhost');
+    expect(component.serverEnabled).toBe(true);
   });
 
   it('should use properties from attributes', () => {
@@ -34,19 +32,15 @@ describe('properties', () => {
     component.showSwitch = true;
     component.autoToggle = true;
     component.hideConsole = true;
-    component.locate = false;
-    component.copy = 'custom';
-    component.target = 'https://example.com';
     component.ip = '192.168.1.100';
+    component.serverEnabled = false;
 
     expect(component.hotKeys).toBe('altKey');
     expect(component.port).toBe(6666);
     expect(component.showSwitch).toBe(true);
     expect(component.autoToggle).toBe(true);
     expect(component.hideConsole).toBe(true);
-    expect(component.locate).toBe(false);
-    expect(component.copy).toBe('custom');
-    expect(component.target).toBe('https://example.com');
     expect(component.ip).toBe('192.168.1.100');
+    expect(component.serverEnabled).toBe(false);
   });
 });

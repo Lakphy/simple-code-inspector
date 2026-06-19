@@ -1,25 +1,25 @@
 # Quick Start
 
-`code-inspector-plugin` supports projects using `webpack/vite/rspack/rsbuild/esbuild/farm/mako` as bundlers, and works with frameworks like `vue/react/preact/solid/qwik/svelte/astro/nextjs/nuxt/umijs`. Please refer to the following integration guide.
+`simple-code-inspector-plugin` supports projects using `webpack/vite/rspack/rsbuild/esbuild/farm/mako` as bundlers, and works with frameworks like `vue/react/preact/solid/qwik/svelte/astro/nextjs/nuxt/umijs`. Please refer to the following integration guide.
 
 ## Installation
 
 - Install using npm:
 
 ```shell
-npm install code-inspector-plugin -D
+npm install simple-code-inspector-plugin -D
 ```
 
 - Install using yarn:
 
 ```shell
-yarn add code-inspector-plugin -D
+yarn add simple-code-inspector-plugin -D
 ```
 
 - Install using pnpm:
 
 ```shell
-pnpm add code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin -D
 ```
 
 ## Configuration
@@ -30,7 +30,7 @@ Complete the corresponding configuration based on your bundler.
 
 ```js
 // webpack.config.js
-const { codeInspectorPlugin } = require('code-inspector-plugin');
+const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
 module.exports = () => ({
   plugins: [
@@ -48,7 +48,7 @@ module.exports = () => ({
 ```js
 // vite.config.js
 import { defineConfig } from 'vite';
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 export default defineConfig({
   plugins: [
@@ -65,7 +65,7 @@ export default defineConfig({
 
 ```js
 // rspack.config.js
-const { codeInspectorPlugin } = require('code-inspector-plugin');
+const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
 module.exports = {
   // other config...
@@ -85,7 +85,7 @@ module.exports = {
 ```js
 // rsbuild.config.js
 import { defineConfig } from '@rsbuild/core';
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 export default defineConfig({
   // ...other config
@@ -108,7 +108,7 @@ export default defineConfig({
 ```js
 // esbuild.config.js
 const esbuild = require('esbuild');
-const { codeInspectorPlugin } = require('code-inspector-plugin');
+const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
 esbuild.build({
   // other configs...
@@ -126,7 +126,7 @@ esbuild.build({
 ```js
 // farm.config.js
 import { defineConfig } from '@farmfe/core';
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 export default defineConfig({
   vitePlugins: [
@@ -144,12 +144,12 @@ export default defineConfig({
 
 ```js
 // vue.config.js
-const { codeInspectorPlugin } = require('code-inspector-plugin');
+const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
 module.exports = {
   // ...other code
   chainWebpack: (config) => {
-    config.plugin('code-inspector-plugin').use(
+    config.plugin('simple-code-inspector-plugin').use(
       codeInspectorPlugin({
         bundler: 'webpack',
       })
@@ -166,7 +166,7 @@ module.exports = {
 
   ```js
   // nuxt.config.js
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   // https://nuxt.com/docs/api/configuration/nuxt-config
   export default defineNuxtConfig({
@@ -180,7 +180,7 @@ module.exports = {
 
   ```js
   // nuxt.config.js
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default {
     build: {
@@ -200,7 +200,7 @@ module.exports = {
 
   ```js
   // next.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   const nextConfig = {
     webpack: (config, { dev, isServer }) => {
@@ -217,7 +217,7 @@ module.exports = {
   ```js
   // next.config.js
   import type { NextConfig } from 'next';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   const nextConfig: NextConfig = {
     experimental: {
@@ -237,7 +237,7 @@ module.exports = {
   ```js
   // next.config.js
   import type { NextConfig } from 'next';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   const nextConfig: NextConfig = {
     turbopack: {
@@ -259,11 +259,11 @@ module.exports = {
   ```js
   // umi.config.js or umirc.js
   import { defineConfig } from '@umijs/max';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     chainWebpack(memo) {
-      memo.plugin('code-inspector-plugin').use(
+      memo.plugin('simple-code-inspector-plugin').use(
         codeInspectorPlugin({
           bundler: 'webpack',
         })
@@ -278,7 +278,7 @@ module.exports = {
   ```ts
   // .umirc.ts
   import { defineConfig } from 'umi';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     // other config...
@@ -300,11 +300,11 @@ There are currently two ways to use the DOM source code location feature:
 
 ### Method 1 (Recommended)
 
-Hold down the keyboard shortcut while moving the mouse over the page, and an overlay will appear on the DOM showing relevant information. Click once to automatically open the IDE and position the cursor at the corresponding code location. (The default shortcut for Mac is `Option + Shift`; for Windows, it's `Alt + Shift`. The browser console will display relevant shortcut hints)
+Hold down the keyboard shortcut while moving the mouse over the page, and an overlay will appear on the DOM showing relevant information. Click once to copy the corresponding source code location (e.g. `/src/App.tsx:12:3 <div>`) to your clipboard. (The default shortcut for Mac is `Option + Shift`; for Windows, it's `Alt + Shift`. The browser console will display relevant shortcut hints)
 ![image](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/console-success.png)
 
 ### Method 2 (Recommended for Mobile)
 
-When `showSwitch: true` is configured in the plugin parameters, a `Code Inspector Switch` button will be displayed on the page. Click to toggle the `Code Inspection Mode` on/off. When the mode is enabled, it works the same way as holding down the shortcut keys in Method 1. When the switch is colored, it indicates that `Code Inspection Mode` is enabled <img src="https://github.com/zh-lx/code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="20" style="display: inline-block;" />; when the switch is black and white, it indicates that `Code Inspection Mode` is disabled <img src="https://user-images.githubusercontent.com/73059627/230129864-e2813188-8d49-4a8e-a6bc-dda19c79b491.png" width="20" style="display: inline-block;" />.
+When `showSwitch: true` is configured in the plugin parameters, a `Code Inspector Switch` button will be displayed on the page. Click to toggle the `Code Inspection Mode` on/off. When the mode is enabled, it works the same way as holding down the shortcut keys in Method 1. When the switch is colored, it indicates that `Code Inspection Mode` is enabled <img src="https://github.com/lakphy/simple-code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="20" style="display: inline-block;" />; when the switch is black and white, it indicates that `Code Inspection Mode` is disabled <img src="https://user-images.githubusercontent.com/73059627/230129864-e2813188-8d49-4a8e-a6bc-dda19c79b491.png" width="20" style="display: inline-block;" />.
 
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)

@@ -6,6 +6,7 @@ describe('sendImg', () => {
   let createElement: typeof document.createElement;
 
   beforeEach(() => {
+    document.body.innerHTML = '';
     // 创建组件实例
     component = new CodeInspectorComponent();
     
@@ -48,8 +49,17 @@ describe('sendImg', () => {
       expect(createdImg).toBeTruthy();
       
       // 验证 src 属性
-      const expectedUrl = 'http://localhost:3777/?file=%2Fpath%2Fto%2Ffile.ts&line=10&column=5';
+      const expectedUrl = 'http://localhost:3777/?file=%2Fpath%2Fto%2Ffile.ts&line=10&column=5&name=test';
       expect(createdImg!.src).toBe(expectedUrl);
+    });
+
+    it('should not claim the copy succeeded before the request can be verified', () => {
+      component.sendImg();
+
+      const notification = document.querySelector(
+        '.code-inspector-notification'
+      );
+      expect(notification?.textContent).toBe('Copy request sent');
     });
   });
 
@@ -67,7 +77,7 @@ describe('sendImg', () => {
       component.element.path = '/path with spaces/file#1.ts';
       component.sendImg();
       
-      const expectedUrl = `http://localhost:3777/?file=${encodeURIComponent('/path with spaces/file#1.ts')}&line=10&column=5`;
+      const expectedUrl = `http://localhost:3777/?file=${encodeURIComponent('/path with spaces/file#1.ts')}&line=10&column=5&name=test`;
       expect(createdImg!.src).toBe(expectedUrl);
     });
 
@@ -85,7 +95,7 @@ describe('sendImg', () => {
       component.port = 8080;
       component.sendImg();
       
-      const expectedUrl = 'http://192.168.1.1:8080/?file=%2Fpath%2Fto%2Ffile.ts&line=10&column=5';
+      const expectedUrl = 'http://192.168.1.1:8080/?file=%2Fpath%2Fto%2Ffile.ts&line=10&column=5&name=test';
       expect(createdImg!.src).toBe(expectedUrl);
     });
   });
@@ -104,7 +114,7 @@ describe('sendImg', () => {
       component.element.path = '';
       component.sendImg();
       
-      const expectedUrl = 'http://localhost:3777/?file=&line=10&column=5';
+      const expectedUrl = 'http://localhost:3777/?file=&line=10&column=5&name=test';
       expect(createdImg!.src).toBe(expectedUrl);
     });
 
@@ -122,7 +132,7 @@ describe('sendImg', () => {
       component.element = {};
       component.sendImg();
       
-      const expectedUrl = 'http://localhost:3777/?file=undefined&line=undefined&column=undefined';
+      const expectedUrl = 'http://localhost:3777/?file=undefined&line=undefined&column=undefined&name=undefined';
       expect(createdImg!.src).toBe(expectedUrl);
     });
   });

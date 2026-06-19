@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: 'Code Inspector',
-  description: "Locate dom's source code in IDE",
+  title: 'Simple Code Inspector',
+  description: "Copy dom's source code location to clipboard",
   themeConfig: {
     logo: '/logo.svg',
     // https://vitepress.dev/reference/default-theme-config
@@ -18,8 +18,9 @@ export default defineConfig({
         items: [
           { text: '介绍', link: '/guide/introduction' },
           { text: '使用', link: '/guide/start' },
+          { text: 'LLM 安装说明', link: '/guide/llm-install' },
           { text: '功能大全', link: '/guide/feature' },
-          { text: 'IDE', link: '/guide/ide' },
+          { text: '剪贴板', link: '/guide/clipboard' },
         ],
       },
       {
@@ -82,7 +83,7 @@ export default defineConfig({
       },
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/zh-lx/code-inspector' },
+      { icon: 'github', link: 'https://github.com/lakphy/simple-code-inspector' },
     ],
   },
   locales: {

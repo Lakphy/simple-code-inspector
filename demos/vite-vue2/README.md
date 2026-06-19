@@ -12,7 +12,7 @@
 
 ## 相关配置
 
-### 1. vscode的vetur插件适配
+### 1. Vue 语言工具适配
 >参考资料: https://github.com/vuejs/vetur/issues/2296#issuecomment-1155957974
 
 需要在根目录创建`vetur.config.js`
@@ -143,5 +143,4 @@ export default defineConfig({
   },
 })
 ```
-
 

@@ -15,7 +15,7 @@ describe('trackCode', () => {
       name: 'div',
       path: '/path/to/file.ts',
       line: 10,
-      column: 5
+      column: 5,
     };
   });
 
@@ -24,31 +24,52 @@ describe('trackCode', () => {
     vi.clearAllMocks();
   });
 
-  describe('Locate Feature', () => {
-    it('should call sendXHR when internalLocate is true and sendType is xhr', () => {
-      component.internalLocate = true;
+  describe('Request Feature', () => {
+    it('should call sendXHR when sendType is xhr', () => {
       component.sendType = 'xhr';
-      const sendXHRSpy = vi.spyOn(component, 'sendXHR').mockImplementation(() => {});
+      const sendXHRSpy = vi
+        .spyOn(component, 'sendXHR')
+        .mockImplementation(() => {});
 
       component.trackCode();
 
       expect(sendXHRSpy).toHaveBeenCalled();
     });
 
-    it('should call sendImg when internalLocate is true and sendType is img', () => {
-      component.internalLocate = true;
+    it('should call sendImg when sendType is img', () => {
       component.sendType = 'img';
-      const sendImgSpy = vi.spyOn(component, 'sendImg').mockImplementation(() => {});
+      const sendImgSpy = vi
+        .spyOn(component, 'sendImg')
+        .mockImplementation(() => {});
 
       component.trackCode();
 
       expect(sendImgSpy).toHaveBeenCalled();
     });
 
-    it('should not call send methods when internalLocate is false', () => {
-      component.internalLocate = false;
-      const sendXHRSpy = vi.spyOn(component, 'sendXHR').mockImplementation(() => {});
-      const sendImgSpy = vi.spyOn(component, 'sendImg').mockImplementation(() => {});
+    it('should only use one transport per click', () => {
+      component.sendType = 'xhr';
+      const sendXHRSpy = vi
+        .spyOn(component, 'sendXHR')
+        .mockImplementation(() => {});
+      const sendImgSpy = vi
+        .spyOn(component, 'sendImg')
+        .mockImplementation(() => {});
+
+      component.trackCode();
+
+      expect(sendXHRSpy).toHaveBeenCalledTimes(1);
+      expect(sendImgSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not send a request when the clipboard server is disabled', () => {
+      component.serverEnabled = false;
+      const sendXHRSpy = vi
+        .spyOn(component, 'sendXHR')
+        .mockImplementation(() => {});
+      const sendImgSpy = vi
+        .spyOn(component, 'sendImg')
+        .mockImplementation(() => {});
 
       component.trackCode();
 
@@ -57,53 +78,9 @@ describe('trackCode', () => {
     });
   });
 
-  describe('Copy Feature', () => {
-    it('should call copyToClipboard when internalCopy is true', () => {
-      component.internalCopy = true;
-      component.copy = true;
-      const copyToClipboardSpy = vi.spyOn(component, 'copyToClipboard').mockImplementation(() => {});
-
-      component.trackCode();
-
-      expect(copyToClipboardSpy).toHaveBeenCalled();
-    });
-
-    it('should not call copyToClipboard when internalCopy is false', () => {
-      component.internalCopy = false;
-      const copyToClipboardSpy = vi.spyOn(component, 'copyToClipboard').mockImplementation(() => {});
-
-      component.trackCode();
-
-      expect(copyToClipboardSpy).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('Target Feature', () => {
-    it('should open target URL when internalTarget is true', () => {
-      component.internalTarget = true;
-      component.target = 'https://example.com/{file}';
-      const windowOpenSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
-
-      component.trackCode();
-
-      expect(windowOpenSpy).toHaveBeenCalledWith(
-        'https://example.com//path/to/file.ts',
-        '_blank'
-      );
-    });
-
-    it('should not open window when internalTarget is false', () => {
-      component.internalTarget = false;
-      const windowOpenSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
-
-      component.trackCode();
-
-      expect(windowOpenSpy).not.toHaveBeenCalled();
-    });
-  });
-
   describe('Custom Event', () => {
     it('should dispatch code-inspector:trackCode custom event', () => {
+      vi.spyOn(component, 'sendXHR').mockImplementation(() => {});
       const eventHandler = vi.fn();
       window.addEventListener('code-inspector:trackCode', eventHandler);
 
@@ -118,11 +95,12 @@ describe('trackCode', () => {
     });
 
     it('should include element info in custom event detail', () => {
+      vi.spyOn(component, 'sendXHR').mockImplementation(() => {});
       component.element = {
         name: 'span',
         path: '/custom/path.tsx',
         line: 42,
-        column: 15
+        column: 15,
       };
 
       const eventHandler = vi.fn();
@@ -138,52 +116,17 @@ describe('trackCode', () => {
 
       window.removeEventListener('code-inspector:trackCode', eventHandler);
     });
-  });
 
-  describe('Multiple Features', () => {
-    it('should handle all features enabled', () => {
-      component.internalLocate = true;
-      component.internalCopy = true;
-      component.internalTarget = true;
-      component.sendType = 'xhr';
-      component.target = 'https://example.com/{file}';
-      component.copy = true;
-
-      const sendXHRSpy = vi.spyOn(component, 'sendXHR').mockImplementation(() => {});
-      const copyToClipboardSpy = vi.spyOn(component, 'copyToClipboard').mockImplementation(() => {});
-      const windowOpenSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
+    it('should always dispatch the event after sending the request', () => {
+      const sendXHRSpy = vi
+        .spyOn(component, 'sendXHR')
+        .mockImplementation(() => {});
       const eventHandler = vi.fn();
       window.addEventListener('code-inspector:trackCode', eventHandler);
 
       component.trackCode();
 
       expect(sendXHRSpy).toHaveBeenCalled();
-      expect(copyToClipboardSpy).toHaveBeenCalled();
-      expect(windowOpenSpy).toHaveBeenCalled();
-      expect(eventHandler).toHaveBeenCalled();
-
-      window.removeEventListener('code-inspector:trackCode', eventHandler);
-    });
-
-    it('should handle all features disabled except custom event', () => {
-      component.internalLocate = false;
-      component.internalCopy = false;
-      component.internalTarget = false;
-
-      const sendXHRSpy = vi.spyOn(component, 'sendXHR').mockImplementation(() => {});
-      const sendImgSpy = vi.spyOn(component, 'sendImg').mockImplementation(() => {});
-      const copyToClipboardSpy = vi.spyOn(component, 'copyToClipboard').mockImplementation(() => {});
-      const windowOpenSpy = vi.spyOn(window, 'open').mockImplementation(() => null);
-      const eventHandler = vi.fn();
-      window.addEventListener('code-inspector:trackCode', eventHandler);
-
-      component.trackCode();
-
-      expect(sendXHRSpy).not.toHaveBeenCalled();
-      expect(sendImgSpy).not.toHaveBeenCalled();
-      expect(copyToClipboardSpy).not.toHaveBeenCalled();
-      expect(windowOpenSpy).not.toHaveBeenCalled();
-      // Custom event should still be dispatched
       expect(eventHandler).toHaveBeenCalled();
 
       window.removeEventListener('code-inspector:trackCode', eventHandler);

@@ -1,7 +1,7 @@
 import { defineConfig } from "@rspack/cli";
 import { type RspackPluginFunction, rspack } from "@rspack/core";
 import { VueLoaderPlugin } from "vue-loader";
-import { codeInspectorPlugin } from "code-inspector-plugin";
+import { codeInspectorPlugin } from "simple-code-inspector-plugin";
 
 // Target browsers, see: https://github.com/browserslist/browserslist
 const targets = ["chrome >= 87", "edge >= 88", "firefox >= 78", "safari >= 14"];

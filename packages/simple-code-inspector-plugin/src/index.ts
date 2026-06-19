@@ -1,13 +1,13 @@
-import { ViteCodeInspectorPlugin } from '@code-inspector/vite';
-import WebpackCodeInspectorPlugin from '@code-inspector/webpack';
-import { EsbuildCodeInspectorPlugin } from '@code-inspector/esbuild';
-import { TurbopackCodeInspectorPlugin } from '@code-inspector/turbopack';
-import { MakoCodeInspectorPlugin } from '@code-inspector/mako';
+import { ViteCodeInspectorPlugin } from '@simple-code-inspector/vite';
+import WebpackCodeInspectorPlugin from '@simple-code-inspector/webpack';
+import { EsbuildCodeInspectorPlugin } from '@simple-code-inspector/esbuild';
+import { TurbopackCodeInspectorPlugin } from '@simple-code-inspector/turbopack';
+import { MakoCodeInspectorPlugin } from '@simple-code-inspector/mako';
 import {
   CodeOptions,
   getEnvVariable,
   resetFileRecord,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 import chalk from 'chalk';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -25,7 +25,7 @@ export function CodeInspectorPlugin(options: CodeInspectorPluginOptions): any {
   if (!options?.bundler) {
     console.log(
       chalk.red(
-        'Please specify the bundler in the options of code-inspector-plugin.',
+        'Please specify the bundler in the options of simple-code-inspector-plugin.',
       ),
     );
     return;

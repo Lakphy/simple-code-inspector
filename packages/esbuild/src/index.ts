@@ -8,11 +8,11 @@ import {
   isDev,
   getMappingFilePath,
   isExcludedFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 import fs from 'fs';
 import path from 'path';
 
-const PluginName = '@code-inspector/esbuild';
+const PluginName = '@simple-code-inspector/esbuild';
 
 interface Options extends CodeOptions {
   close?: boolean;

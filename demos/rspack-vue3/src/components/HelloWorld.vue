@@ -24,7 +24,7 @@ const count = ref<number>(0);
 	<p>
 		Install
 		<a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-		in your IDE for a better DX
+		for better Vue type support
 	</p>
 	<p class="read-the-docs">Click on the Rspack and Vue logos to learn more</p>
 </template>

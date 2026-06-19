@@ -3,7 +3,7 @@ import {
   RecordInfo,
   isDev,
   isNextGET16,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -18,13 +18,13 @@ export function resolveWebpackEntry(params: {
 }) {
   if (typeof params.importMetaResolve === 'function') {
     const resolved = params.importMetaResolve(
-      '@code-inspector/webpack',
+      '@simple-code-inspector/webpack',
     ) as unknown as string;
     return fileURLToPath(resolved);
   }
 
   return typeof params.requireResolve === 'function'
-    ? params.requireResolve('@code-inspector/webpack')
+    ? params.requireResolve('@simple-code-inspector/webpack')
     : null;
 }
 

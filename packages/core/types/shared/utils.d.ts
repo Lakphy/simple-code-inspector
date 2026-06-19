@@ -1,4 +1,23 @@
 import { CodeOptions, Condition, EscapeTags } from './type';
+/**
+ * 将源码位置信息格式化为复制到剪贴板的文本
+ * @param format 模版字符串，支持 {file} / {line} / {column} / {tag} 占位符
+ * @param source 源码位置信息
+ */
+export declare function formatCopyText(format: string, source: {
+    file: string;
+    line: number;
+    column: number;
+    tag: string;
+}): string;
+/**
+ * 读取 cwd 下 `.env.local` 文件中指定 key 的值
+ * 用于 `needEnvInspector` 配置：仅当 `.env.local` 中包含 `CODE_INSPECTOR=true` 时插件才生效
+ * @param key 环境变量名
+ * @param cwd 项目目录，默认为 process.cwd()
+ * @returns 对应的值；不存在时返回 undefined
+ */
+export declare function getEnvVariable(key: string, cwd?: string): string | undefined;
 export declare function getIP(ip: boolean | string): string;
 export declare function isJsTypeFile(file: string): boolean;
 export declare function getFilePathWithoutExt(filePath: string): string;

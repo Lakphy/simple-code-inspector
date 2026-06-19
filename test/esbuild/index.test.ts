@@ -16,7 +16,7 @@ vi.mock('fs', () => ({
 }));
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   transformCode: vi.fn((params: any) => `transformed:${params.content}`),
   CodeOptions: {},
   getCodeWithWebComponent: vi.fn(async ({ code }: { code: string }) => `injected:${code}`),
@@ -39,7 +39,7 @@ import {
   isJsTypeFile,
   parseSFC,
   isExcludedFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 describe('EsbuildCodeInspectorPlugin', () => {
   beforeEach(() => {
@@ -49,7 +49,7 @@ describe('EsbuildCodeInspectorPlugin', () => {
   describe('basic plugin structure', () => {
     it('should return plugin with correct name', () => {
       const plugin = EsbuildCodeInspectorPlugin({ bundler: 'esbuild', output: '/test' });
-      expect(plugin.name).toBe('@code-inspector/esbuild');
+      expect(plugin.name).toBe('@simple-code-inspector/esbuild');
     });
 
     it('should have setup function', () => {

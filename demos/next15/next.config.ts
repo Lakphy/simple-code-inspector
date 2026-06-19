@@ -1,5 +1,5 @@
 import type { NextConfig } from 'next';
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 const nextConfig: NextConfig = {
   experimental: {

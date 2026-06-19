@@ -1,6 +1,6 @@
 # Turbopack Next.js 15 Demo
 
-This demo showcases code-inspector-plugin with Next.js 15 using Turbopack bundler.
+This demo showcases simple-code-inspector-plugin with Next.js 15 using Turbopack bundler.
 
 ## Features
 
@@ -22,13 +22,13 @@ pnpm dev
 
 3. Open [http://localhost:3000](http://localhost:3000)
 
-4. Hold Option/Alt + Click on any element to jump to its source code in your editor
+4. Hold Option/Alt + Click on any element to copy its source code location to your clipboard
 
 ## How it Works
 
 The code inspector plugin automatically:
 - Creates an `instrumentation-client.js` file that runs before your app
 - Adds data attributes to elements during development
-- Starts a local server to handle editor opening requests
+- Starts a local server that copies the clicked element's source code location to your clipboard
 
 No manual setup required for Next.js 15.3+ with Turbopack!

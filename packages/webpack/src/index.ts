@@ -5,7 +5,7 @@ import {
   getProjectRecord,
   isDev,
   isNextjsProject,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { getWebpackEntrys } from './entry';
@@ -153,7 +153,6 @@ class WebpackCodeInspectorPlugin {
         compiler?.options?.entry,
         compiler?.options?.context,
       ),
-      envDir: compiler?.options?.context,
       root: compiler?.options?.context,
     };
 

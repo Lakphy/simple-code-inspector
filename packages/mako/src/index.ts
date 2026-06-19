@@ -8,7 +8,7 @@ import {
   isJsTypeFile,
   normalizePath,
   transformCode,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 import path from 'path';
 
 interface Options extends CodeOptions {
@@ -28,12 +28,12 @@ export function MakoCodeInspectorPlugin(options: Options): Record<string, any> {
     !isDev(options.dev, process.env.NODE_ENV === 'development')
   ) {
     return {
-      name: '@code-inspector/mako',
+      name: '@simple-code-inspector/mako',
     };
   }
 
   return {
-    name: '@code-inspector/mako',
+    name: '@simple-code-inspector/mako',
     enforce: options.enforcePre === false ? 'post' : 'pre',
     transform: async (
       content: string,

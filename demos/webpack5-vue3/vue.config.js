@@ -1,10 +1,10 @@
-const { CodeInspectorPlugin } = require('code-inspector-plugin');
+const { CodeInspectorPlugin } = require('simple-code-inspector-plugin');
 
 module.exports = {
   // ...other code
   chainWebpack: (config) => {
     // add this configuration in the development environment
-    config.plugin('code-inspector-plugin').use(
+    config.plugin('simple-code-inspector-plugin').use(
       CodeInspectorPlugin({
         bundler: 'webpack',
       })

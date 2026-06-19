@@ -20,7 +20,7 @@ const count = ref(0)
   <p>
     Install
     <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-    in your IDE for a better DX
+    for better Vue type support
   </p>
   <p class="read-the-docs">Click on the Farm and Vue logos to learn more</p>
 </template>

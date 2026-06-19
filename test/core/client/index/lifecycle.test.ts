@@ -18,21 +18,6 @@ describe('Lifecycle methods', () => {
   });
 
   describe('firstUpdated', () => {
-    it('should initialize internal states from properties', async () => {
-      component = new CodeInspectorComponent();
-      component.locate = true;
-      component.copy = 'custom';
-      component.target = 'https://example.com';
-      component.hideConsole = true;
-
-      document.body.appendChild(component);
-      await component.updateComplete;
-
-      expect(component.internalLocate).toBe(true);
-      expect(component.internalCopy).toBe(true);
-      expect(component.internalTarget).toBe(true);
-    });
-
     it('should call printTip when hideConsole is false', async () => {
       component = new CodeInspectorComponent();
       component.hideConsole = false;
@@ -70,12 +55,25 @@ describe('Lifecycle methods', () => {
       expect(addEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function), true);
       expect(addEventListenerSpy).toHaveBeenCalledWith('pointerdown', expect.any(Function), true);
       expect(addEventListenerSpy).toHaveBeenCalledWith('keyup', expect.any(Function), true);
-      expect(addEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
       expect(addEventListenerSpy).toHaveBeenCalledWith('mouseleave', expect.any(Function), true);
       expect(addEventListenerSpy).toHaveBeenCalledWith('mouseup', expect.any(Function), true);
       expect(addEventListenerSpy).toHaveBeenCalledWith('touchend', expect.any(Function), true);
       expect(addEventListenerSpy).toHaveBeenCalledWith('contextmenu', expect.any(Function), true);
       expect(addEventListenerSpy).toHaveBeenCalledWith('wheel', expect.any(Function), { passive: false });
+    });
+
+    it('should not register a keydown listener (mode shortcut removed)', async () => {
+      const addEventListenerSpy = vi.spyOn(window, 'addEventListener');
+
+      component = new CodeInspectorComponent();
+      component.hideConsole = true;
+      document.body.appendChild(component);
+      await component.updateComplete;
+
+      const registeredKeydown = addEventListenerSpy.mock.calls.some(
+        (call) => call[0] === 'keydown'
+      );
+      expect(registeredKeydown).toBe(false);
     });
   });
 
@@ -95,47 +93,11 @@ describe('Lifecycle methods', () => {
       expect(removeEventListenerSpy).toHaveBeenCalledWith('click', expect.any(Function), true);
       expect(removeEventListenerSpy).toHaveBeenCalledWith('pointerdown', expect.any(Function), true);
       expect(removeEventListenerSpy).toHaveBeenCalledWith('keyup', expect.any(Function), true);
-      expect(removeEventListenerSpy).toHaveBeenCalledWith('keydown', expect.any(Function), true);
       expect(removeEventListenerSpy).toHaveBeenCalledWith('mouseleave', expect.any(Function), true);
       expect(removeEventListenerSpy).toHaveBeenCalledWith('mouseup', expect.any(Function), true);
       expect(removeEventListenerSpy).toHaveBeenCalledWith('touchend', expect.any(Function), true);
       expect(removeEventListenerSpy).toHaveBeenCalledWith('contextmenu', expect.any(Function), true);
       expect(removeEventListenerSpy).toHaveBeenCalledWith('wheel', expect.any(Function), { passive: false } as EventListenerOptions);
-    });
-  });
-
-  describe('Internal state initialization', () => {
-    it('should set internalLocate to false when locate is false', async () => {
-      component = new CodeInspectorComponent();
-      component.locate = false;
-      component.hideConsole = true;
-
-      document.body.appendChild(component);
-      await component.updateComplete;
-
-      expect(component.internalLocate).toBe(false);
-    });
-
-    it('should set internalCopy to false when copy is false', async () => {
-      component = new CodeInspectorComponent();
-      component.copy = false;
-      component.hideConsole = true;
-
-      document.body.appendChild(component);
-      await component.updateComplete;
-
-      expect(component.internalCopy).toBe(false);
-    });
-
-    it('should set internalTarget to false when target is empty', async () => {
-      component = new CodeInspectorComponent();
-      component.target = '';
-      component.hideConsole = true;
-
-      document.body.appendChild(component);
-      await component.updateComplete;
-
-      expect(component.internalTarget).toBe(false);
     });
   });
 });

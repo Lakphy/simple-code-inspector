@@ -5,6 +5,12 @@ import { createRequire } from 'module';
 
 const mockHttpCreateServer = vi.hoisted(() => vi.fn());
 const mockPortfinderGetPort = vi.hoisted(() => vi.fn());
+const mockCopyToClipboard = vi.hoisted(() => vi.fn());
+
+// 避免测试真的写入系统剪贴板 / 启动子进程
+vi.mock('@/core/src/server/clipboard', () => ({
+  copyToClipboard: mockCopyToClipboard,
+}));
 const requireFromCore = createRequire(
   path.resolve(process.cwd(), 'packages/core/package.json'),
 );
@@ -24,6 +30,7 @@ describe('createServer', () => {
   beforeEach(async () => {
     vi.resetModules();
     vi.clearAllMocks();
+    mockCopyToClipboard.mockResolvedValue(true);
 
     mockServer = {
       listen: vi.fn((port: number, callback: Function) => {
@@ -77,7 +84,7 @@ describe('createServer', () => {
   });
 
   describe('request handling', () => {
-    it('should handle request with file, line, and column parameters', () => {
+    it('should handle request with file, line, and column parameters', async () => {
       const afterInspectRequest = vi.fn();
       serverModule.createServer(vi.fn(), {
         bundler: 'vite',
@@ -94,7 +101,7 @@ describe('createServer', () => {
         end: vi.fn(),
       };
 
-      requestHandler(mockReq, mockRes);
+      await requestHandler(mockReq, mockRes);
 
       expect(mockRes.writeHead).toHaveBeenCalledWith(200, {
         'Access-Control-Allow-Origin': '*',
@@ -113,7 +120,7 @@ describe('createServer', () => {
       );
     });
 
-    it('should prepend ProjectRootPath to relative file paths', () => {
+    it('should prepend ProjectRootPath to relative file paths', async () => {
       const afterInspectRequest = vi.fn();
       serverModule.createServer(vi.fn(), {
         bundler: 'vite',
@@ -130,7 +137,7 @@ describe('createServer', () => {
         end: vi.fn(),
       };
 
-      requestHandler(mockReq, mockRes);
+      await requestHandler(mockReq, mockRes);
 
       if (serverModule.ProjectRootPath) {
         expect(afterInspectRequest).toHaveBeenCalledWith(
@@ -142,7 +149,7 @@ describe('createServer', () => {
       }
     });
 
-    it('should return 403 for file outside ProjectRootPath with relative pathType', () => {
+    it('should return 403 for file outside ProjectRootPath with relative pathType', async () => {
       serverModule.createServer(vi.fn(), {
         pathType: 'relative',
         bundler: 'vite',
@@ -156,15 +163,15 @@ describe('createServer', () => {
         end: vi.fn(),
       };
 
-      requestHandler(mockReq, mockRes);
+      await requestHandler(mockReq, mockRes);
 
       if (serverModule.ProjectRootPath) {
         expect(mockRes.writeHead).toHaveBeenCalledWith(403, expect.any(Object));
-        expect(mockRes.end).toHaveBeenCalledWith('not allowed to open this file');
+        expect(mockRes.end).toHaveBeenCalledWith('not allowed to copy this file');
       }
     });
 
-    it('should call afterInspectRequest hook if provided', () => {
+    it('should call afterInspectRequest hook if provided', async () => {
       const afterInspectRequest = vi.fn();
       const options = {
         bundler: 'vite' as const,
@@ -183,7 +190,7 @@ describe('createServer', () => {
         end: vi.fn(),
       };
 
-      requestHandler(mockReq, mockRes);
+      await requestHandler(mockReq, mockRes);
 
       expect(afterInspectRequest).toHaveBeenCalledWith(options, {
         file: expect.any(String),
@@ -192,55 +199,86 @@ describe('createServer', () => {
       });
     });
 
-    it('should pass editor and openIn options to launchIDE', () => {
-      const afterInspectRequest = vi.fn();
-      serverModule.createServer(
-        vi.fn(),
-        {
-          bundler: 'vite',
-          editor: 'code',
-          openIn: 'new',
-          pathFormat: '{file}:{line}',
-          launchType: 'open',
-          hooks: {
-            afterInspectRequest,
-          },
-        },
-        {
-          output: '/test',
-          port: 0,
-          entry: '',
-          envDir: '/project',
-        },
-      );
+    it('should copy the default-formatted source location (with tag) to the clipboard', async () => {
+      serverModule.createServer(vi.fn(), {
+        bundler: 'vite',
+      });
 
       const mockReq = {
-        url: '?file=%2Ftest%2Ffile.ts&line=10&column=5',
+        url: '?file=%2Ftest%2Ffile.ts&line=10&column=5&name=div',
       };
       const mockRes = {
         writeHead: vi.fn(),
         end: vi.fn(),
       };
 
-      requestHandler(mockReq, mockRes);
+      await requestHandler(mockReq, mockRes);
 
-      expect(afterInspectRequest).toHaveBeenCalledWith(
-        expect.objectContaining({
-          bundler: 'vite',
-          editor: 'code',
-          openIn: 'new',
-          pathFormat: '{file}:{line}',
-          launchType: 'open',
-        }),
-        expect.objectContaining({
-          file: '/test/file.ts',
-          line: 10,
-          column: 5,
-        }),
-      );
+      expect(mockCopyToClipboard).toHaveBeenCalledWith('/test/file.ts:10:5 <div>');
     });
 
-    it('should decode URL-encoded file paths correctly', () => {
+    it('should respect a custom copyFormat', async () => {
+      serverModule.createServer(vi.fn(), {
+        bundler: 'vite',
+        copyFormat: '{file}#L{line}',
+      });
+
+      const mockReq = {
+        url: '?file=%2Ftest%2Ffile.ts&line=10&column=5&name=div',
+      };
+      const mockRes = {
+        writeHead: vi.fn(),
+        end: vi.fn(),
+      };
+
+      await requestHandler(mockReq, mockRes);
+
+      expect(mockCopyToClipboard).toHaveBeenCalledWith('/test/file.ts#L10');
+    });
+
+    it('should return 500 when copying to clipboard fails', async () => {
+      mockCopyToClipboard.mockResolvedValueOnce(false);
+      serverModule.createServer(vi.fn(), {
+        bundler: 'vite',
+      });
+
+      const mockReq = {
+        url: '?file=%2Ftest%2Ffile.ts&line=10&column=5&name=div',
+      };
+      const mockRes = {
+        writeHead: vi.fn(),
+        end: vi.fn(),
+      };
+
+      await requestHandler(mockReq, mockRes);
+
+      expect(mockRes.writeHead).toHaveBeenCalledWith(500, expect.any(Object));
+      expect(mockRes.end).toHaveBeenCalledWith('failed to copy to clipboard');
+    });
+
+    it('should not copy to clipboard for a 403 (file outside ProjectRootPath)', async () => {
+      if (!serverModule.ProjectRootPath) {
+        return;
+      }
+      serverModule.createServer(vi.fn(), {
+        pathType: 'relative',
+        bundler: 'vite',
+      });
+
+      const mockReq = {
+        url: '?file=%2Fetc%2Fpasswd&line=1&column=1&name=div',
+      };
+      const mockRes = {
+        writeHead: vi.fn(),
+        end: vi.fn(),
+      };
+
+      await requestHandler(mockReq, mockRes);
+
+      expect(mockCopyToClipboard).not.toHaveBeenCalled();
+    });
+
+    it('should decode URL-encoded file paths correctly', async () => {
       const afterInspectRequest = vi.fn();
       serverModule.createServer(vi.fn(), {
         bundler: 'vite',
@@ -257,7 +295,7 @@ describe('createServer', () => {
         end: vi.fn(),
       };
 
-      requestHandler(mockReq, mockRes);
+      await requestHandler(mockReq, mockRes);
 
       expect(afterInspectRequest).toHaveBeenCalledWith(
         expect.any(Object),
@@ -269,7 +307,7 @@ describe('createServer', () => {
       );
     });
 
-    it('should handle missing line and column parameters', () => {
+    it('should handle missing line and column parameters', async () => {
       const afterInspectRequest = vi.fn();
       serverModule.createServer(vi.fn(), {
         bundler: 'vite',
@@ -286,7 +324,7 @@ describe('createServer', () => {
         end: vi.fn(),
       };
 
-      requestHandler(mockReq, mockRes);
+      await requestHandler(mockReq, mockRes);
 
       expect(afterInspectRequest).toHaveBeenCalledWith(
         expect.any(Object),

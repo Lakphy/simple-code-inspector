@@ -2,7 +2,7 @@ import {
   normalizePath,
   getCodeWithWebComponent,
   isExcludedFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 export default function WebpackCodeInjectLoader(
   content: string,

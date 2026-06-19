@@ -58,7 +58,7 @@ describe('core/src/index exports', () => {
     expect(typeof parseSFC).toBe('function');
   });
 
-  it('should export getEnvVariable from launch-ide', async () => {
+  it('should export getEnvVariable', async () => {
     const { getEnvVariable } = await import('@/core/src/index');
     expect(typeof getEnvVariable).toBe('function');
   });

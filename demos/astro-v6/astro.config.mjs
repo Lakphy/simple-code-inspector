@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 // https://astro.build/config
 export default defineConfig({

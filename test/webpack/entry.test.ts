@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest';
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   normalizePath: vi.fn((p: string) => p.replace(/\\/g, '/')),
 }));
 

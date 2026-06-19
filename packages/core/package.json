@@ -1,5 +1,5 @@
 {
-  "name": "@code-inspector/core",
+  "name": "@simple-code-inspector/core",
   "version": "1.6.1",
   "main": "dist/index.js",
   "module": "./dist/index.mjs",
@@ -20,22 +20,22 @@
       }
     }
   },
-  "repository": "git@github.com:zh-lx/code-inspector.git",
-  "author": "zh-lx <18366276315@163.com>",
+  "repository": "git@github.com:lakphy/simple-code-inspector.git",
+  "author": "lakphy",
   "license": "MIT",
   "homepage": "https://inspector.fe-dev.cn/en",
-  "description": "Click the dom on the page, it will open your IDE and position the cursor to the source code location of the dom.",
+  "description": "Click the dom on the page, it will copy the source code location of the dom to your clipboard.",
   "keywords": [
     "webpack",
     "vite",
     "plugin",
     "vue",
-    "vscode",
+    "clipboard",
     "inspector",
     "inspect"
   ],
   "bugs": {
-    "url": "https://github.com/zh-lx/code-inspector/issues"
+    "url": "https://github.com/lakphy/simple-code-inspector/issues"
   },
   "scripts": {
     "dev": "vite",
@@ -51,7 +51,6 @@
     "@vue/compiler-dom": "^3.5.13",
     "chalk": "^4.1.1",
     "dotenv": "^16.1.4",
-    "launch-ide": "1.4.3",
     "portfinder": "^1.0.28"
   },
   "devDependencies": {

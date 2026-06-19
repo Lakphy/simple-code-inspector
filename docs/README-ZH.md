@@ -1,16 +1,16 @@
 <div align="center">
-<img src="https://github.com/zh-lx/code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="160px" style="margin-bottom: 12px;" />
+<img src="https://github.com/lakphy/simple-code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="160px" style="margin-bottom: 12px;" />
 
 <p align="center">
-  <h2>code-inspector-plugin</h2>
+  <h2>simple-code-inspector-plugin</h2>
   <a href="https://inspector.fe-dev.cn">中文文档</a> | <a href="https://inspector.fe-dev.cn/en">Documentation</a>
 </p>
 
-[![NPM version](https://img.shields.io/npm/v/code-inspector-plugin.svg)](https://www.npmjs.com/package/code-inspector-plugin)
-[![GITHUB star](https://img.shields.io/github/stars/zh-lx/code-inspector?style=flat&label=%E2%AD%90%EF%B8%8F%20stars)](https://github.com/zh-lx/code-inspector)
-[![NPM Downloads](https://img.shields.io/npm/dm/code-inspector-plugin.svg)](https://npmcharts.netlify.app/compare/code-inspector-plugin?minimal=true)
+[![NPM version](https://img.shields.io/npm/v/simple-code-inspector-plugin.svg)](https://www.npmjs.com/package/simple-code-inspector-plugin)
+[![GITHUB star](https://img.shields.io/github/stars/lakphy/simple-code-inspector?style=flat&label=%E2%AD%90%EF%B8%8F%20stars)](https://github.com/lakphy/simple-code-inspector)
+[![NPM Downloads](https://img.shields.io/npm/dm/simple-code-inspector-plugin.svg)](https://npmcharts.netlify.app/compare/simple-code-inspector-plugin?minimal=true)
 [![MIT-license](https://img.shields.io/npm/l/code-inspector.svg)](https://opensource.org/licenses/MIT)
-[![GITHUB-language](https://img.shields.io/github/languages/top/zh-lx/code-inspector?logoColor=purple&color=purple)](https://github.com/zh-lx/code-inspector)
+[![GITHUB-language](https://img.shields.io/github/languages/top/lakphy/simple-code-inspector?logoColor=purple&color=purple)](https://github.com/lakphy/simple-code-inspector)
 
 </div>
 
@@ -18,7 +18,7 @@
 
 ## 📖 介绍
 
-点击页面上的元素，能够自动打开你的代码编辑器并将光标定位到元素对应的代码位置。
+点击页面上的元素，即可将元素对应的源码位置复制到剪贴板，方便粘贴到终端或 AI 助手中。
 
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)
 
@@ -34,7 +34,7 @@
 
 ## 🎨 支持列表
 
-当前支持的编译器、web 框架以及 IDE 如下:
+当前支持的编译器、web 框架如下:
 
 - 当前支持以下打包工具<br />
   ✅ webpack<br />
@@ -50,21 +50,20 @@
   ✅ qwik<br />
   ✅ svelte<br />
   ✅ astro
-- [支持的 editor 列表](https://github.com/zh-lx/launch-ide?tab=readme-ov-file#-supported-editors) | [and Others](https://inspector.fe-dev.cn/en/guide/ide.html)
 
 ## 🚀 安装
 
 ```perl
-npm i code-inspector-plugin -D
+npm i simple-code-inspector-plugin -D
 # or
-yarn add code-inspector-plugin -D
+yarn add simple-code-inspector-plugin -D
 # or
-pnpm add code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin -D
 ```
 
 ## 🌈 使用
 
-完整的接入及使用方式请查看：[code-inspector-plugin 配置](https://inspector.fe-dev.cn/guide/start.html#%E9%85%8D%E7%BD%AE)
+完整的接入及使用方式请查看：[simple-code-inspector-plugin 配置](https://inspector.fe-dev.cn/guide/start.html#%E9%85%8D%E7%BD%AE)
 
 - 1.配置打包工具
 
@@ -73,7 +72,7 @@ pnpm add code-inspector-plugin -D
 
   ```js
   // webpack.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports = () => ({
     plugins: [
@@ -92,7 +91,7 @@ pnpm add code-inspector-plugin -D
   ```js
   // vite.config.js
   import { defineConfig } from 'vite';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     plugins: [
@@ -110,7 +109,7 @@ pnpm add code-inspector-plugin -D
 
   ```js
   // rspack.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports =  = {
     // other config...
@@ -130,7 +129,7 @@ pnpm add code-inspector-plugin -D
 
   ```js
   // rsbuild.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports = {
     // other config...
@@ -153,12 +152,12 @@ pnpm add code-inspector-plugin -D
 
   ```js
   // vue.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports = {
     // ...other code
     chainWebpack: (config) => {
-      config.plugin('code-inspector-plugin').use(
+      config.plugin('simple-code-inspector-plugin').use(
         codeInspectorPlugin({
           bundler: 'webpack',
         })
@@ -176,7 +175,7 @@ pnpm add code-inspector-plugin -D
 
   ```js
   // nuxt.config.js
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   // https://nuxt.com/docs/api/configuration/nuxt-config
   export default defineNuxtConfig({
@@ -190,7 +189,7 @@ pnpm add code-inspector-plugin -D
 
   ```js
   // nuxt.config.js
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default {
     build: {
@@ -209,7 +208,7 @@ pnpm add code-inspector-plugin -D
 
   ```js
   // next.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   const nextConfig = {
     webpack: (config, { dev, isServer }) => {
@@ -229,11 +228,11 @@ pnpm add code-inspector-plugin -D
   ```js
   // umi.config.js or umirc.js
   import { defineConfig } from '@umijs/max';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     chainWebpack(memo) {
-      memo.plugin('code-inspector-plugin').use(
+      memo.plugin('simple-code-inspector-plugin').use(
         codeInspectorPlugin({
           bundler: 'webpack',
         })
@@ -251,7 +250,7 @@ pnpm add code-inspector-plugin -D
   ```js
   // astro.config.mjs
   import { defineConfig } from 'astro/config';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     vite: {
@@ -266,14 +265,14 @@ pnpm add code-inspector-plugin -D
 
   现在你可以尽情的使用功能了！~
 
-  在页面上按住组合键时，鼠标在页面移动即会在 DOM 上出现遮罩层并显示相关信息，点击一下将自动打开 IDE 并将光标定位到元素对应的代码位置。 (Mac 系统默认组合键是 `Option + Shift`；Window 的默认组合键是 `Alt + Shift`，在浏览器控制台会输出相关组合键提示)
+  在页面上按住组合键时，鼠标在页面移动即会在 DOM 上出现遮罩层并显示相关信息，点击一下即可将元素对应的源码位置（如 `/src/App.tsx:12:3 <div>`）复制到剪贴板。 (Mac 系统默认组合键是 `Option + Shift`；Window 的默认组合键是 `Alt + Shift`，在浏览器控制台会输出相关组合键提示)
 
   <img src="https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/console-success.png" width="700px" />
 
 ## 👨‍💻 Contributors
 
 特别鸣谢本项目的贡献者：<br />
-<img src="https://contrib.rocks/image?repo=zh-lx/code-inspector" height="40" />
+<img src="https://contrib.rocks/image?repo=lakphy/simple-code-inspector" height="40" />
 
 ## 📧 交流与反馈
 

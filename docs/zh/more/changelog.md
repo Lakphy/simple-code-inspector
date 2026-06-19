@@ -2,368 +2,349 @@
 
 ## 1.6.1
 
-- 【fix】优化 inspector tooltip 位置逻辑，防止遮挡目标元素 [#541](https://github.com/zh-lx/code-inspector/pull/541)
+- 【fix】优化 inspector tooltip 位置逻辑，防止遮挡目标元素 [#541](https://github.com/lakphy/simple-code-inspector/pull/541)
 
 ## 1.6.0
 
-- 【feat】新增对 Astro（`.astro`）文件的源码定位支持，在框架编译前注入 `data-insp-path`，优先使用 `@astrojs/compiler` 的 AST 定位，无法解析时回退到安全的源码扫描 [#531](https://github.com/zh-lx/code-inspector/pull/531)
-- 【feat】新增 `mdx` 参数（1.6.0+），用于开启整个 MDX 文件的源码定位编译。设置为 `true` 时会在 MDX 编译前重写文件内容，让 Markdown 块和显式 JSX/HTML 标签都可定位；由于不同项目的 MDX、remark、rehype 插件和复杂语法存在差异，开启后有一定编译失败风险 [#531](https://github.com/zh-lx/code-inspector/pull/531)
+- 【feat】新增对 Astro（`.astro`）文件的源码定位支持，在框架编译前注入 `data-insp-path`，优先使用 `@astrojs/compiler` 的 AST 定位，无法解析时回退到安全的源码扫描 [#531](https://github.com/lakphy/simple-code-inspector/pull/531)
+- 【feat】新增 `mdx` 参数（1.6.0+），用于开启整个 MDX 文件的源码定位编译。设置为 `true` 时会在 MDX 编译前重写文件内容，让 Markdown 块和显式 JSX/HTML 标签都可定位；由于不同项目的 MDX、remark、rehype 插件和复杂语法存在差异，开启后有一定编译失败风险 [#531](https://github.com/lakphy/simple-code-inspector/pull/531)
 
 ## 1.5.4
 
-- 【fix】修复了在 `turbopack` 中使用时未按 Next.js 项目注入客户端组件的问题 [#530](https://github.com/zh-lx/code-inspector/pull/530)
-- 【fix】修复了在 Next.js 中使用 webpack 时，临时编译错误恢复后热更新失效的问题 [#530](https://github.com/zh-lx/code-inspector/pull/530)
+- 【fix】修复了在 `turbopack` 中使用时未按 Next.js 项目注入客户端组件的问题 [#530](https://github.com/lakphy/simple-code-inspector/pull/530)
+- 【fix】修复了在 Next.js 中使用 webpack 时，临时编译错误恢复后热更新失效的问题 [#530](https://github.com/lakphy/simple-code-inspector/pull/530)
 
 ## 1.5.3
 
-- 【fix】将 `turbopack` 中 `importClient` 的默认值改为 `file`，同时保留用户显式配置 [#525](https://github.com/zh-lx/code-inspector/pull/525)
+- 【fix】将 `turbopack` 中 `importClient` 的默认值改为 `file`，同时保留用户显式配置 [#525](https://github.com/lakphy/simple-code-inspector/pull/525)
 
 ## 1.5.2
 
-- 【fix】修复了在被转换文件不属于当前工作目录时，Next.js 项目识别和 `next/package.json` 解析错误的问题 [#523](https://github.com/zh-lx/code-inspector/pull/523)
+- 【fix】修复了在被转换文件不属于当前工作目录时，Next.js 项目识别和 `next/package.json` 解析错误的问题 [#523](https://github.com/lakphy/simple-code-inspector/pull/523)
 
 ## 1.5.1
 
-- 【fix】修复了 nextjs 中使用本插件编译失败的问题 [#514](https://github.com/zh-lx/code-inspector/pull/514)
+- 【fix】修复了 nextjs 中使用本插件编译失败的问题 [#514](https://github.com/lakphy/simple-code-inspector/pull/514)
 
 ## 1.5.0
 
-- 【feat】React 组件优先显示组件名称并定位至组件调用处 [#513](https://github.com/zh-lx/code-inspector/pull/513)
+- 【feat】React 组件优先显示组件名称并定位至组件调用处 [#513](https://github.com/lakphy/simple-code-inspector/pull/513)
 
 ## 1.4.7
 
-- 【fix】修复了 nextjs 中使用本插件编译失败的问题 [#514](https://github.com/zh-lx/code-inspector/pull/514)
+- 【fix】修复了 nextjs 中使用本插件编译失败的问题 [#514](https://github.com/lakphy/simple-code-inspector/pull/514)
 
 ## 1.4.6
 
-- 【fix】修复了在 webpack 中 vue 无法注入 `data-insp-path` 的问题 [#511](https://github.com/zh-lx/code-inspector/pull/511)
-- 【fix】修复了 esbuild 中使用本插件编译失败的问题 [#510](https://github.com/zh-lx/code-inspector/pull/510)
+- 【fix】修复了在 webpack 中 vue 无法注入 `data-insp-path` 的问题 [#511](https://github.com/lakphy/simple-code-inspector/pull/511)
+- 【fix】修复了 esbuild 中使用本插件编译失败的问题 [#510](https://github.com/lakphy/simple-code-inspector/pull/510)
 
 ## 1.4.5
 
-- 【fix】修复在 `nuxtjs v4` 版本中不生效的问题 [#504](https://github.com/zh-lx/code-inspector/pull/504)
+- 【fix】修复在 `nuxtjs v4` 版本中不生效的问题 [#504](https://github.com/lakphy/simple-code-inspector/pull/504)
 
 ## 1.4.4
 
-- 【fix】异步按需加载 `@vue/compiler-dom` 已修复部分项目中因依赖问题导致的启动失败 [#498](https://github.com/zh-lx/code-inspector/pull/498)
+- 【fix】异步按需加载 `@vue/compiler-dom` 已修复部分项目中因依赖问题导致的启动失败 [#498](https://github.com/lakphy/simple-code-inspector/pull/498)
 
 ## 1.4.3
 
-- 【fix】修复 vscode `1.110.0+` 版本无法识别的问题 [#494](https://github.com/zh-lx/code-inspector/pull/494)
 
 ## 1.4.2
 
-- 【fix】修复了通过滚轮滚动切换父子元素时，会触发页面滚动的问题 [#480](https://github.com/zh-lx/code-inspector/pull/480)
+- 【fix】修复了通过滚轮滚动切换父子元素时，会触发页面滚动的问题 [#480](https://github.com/lakphy/simple-code-inspector/pull/480)
 
 ## 1.4.1
 
-- 【fix】修复 webpack 中 `$$` 会被替换成 `$` 的问题 [#462](https://github.com/zh-lx/code-inspector/pull/462)
+- 【fix】修复 webpack 中 `$$` 会被替换成 `$` 的问题 [#462](https://github.com/lakphy/simple-code-inspector/pull/462)
 
 ## 1.4.0
 
-- 【feat】新增通过滚轮滚动切换父子元素的功能 [#456](https://github.com/zh-lx/code-inspector/pull/456)
+- 【feat】新增通过滚轮滚动切换父子元素的功能 [#456](https://github.com/lakphy/simple-code-inspector/pull/456)
 
 ## 1.3.6
 
-- 【fix】修复 Windows 系统中关于 `Module not found` 的错误 [#453](https://github.com/zh-lx/code-inspector/pull/453)
+- 【fix】修复 Windows 系统中关于 `Module not found` 的错误 [#453](https://github.com/lakphy/simple-code-inspector/pull/453)
 
 ## 1.3.5
 
-- 【feat】新增 `launchType` 参数，对于 MacOS 上的部分 editor 可以通过 `open` 指令快速定位文件 [#452](https://github.com/zh-lx/code-inspector/pull/452)
-- 【fix】修复了 `Nextjs` 中部分情况会出现 `Module not found` 的错误 [#451](https://github.com/zh-lx/code-inspector/pull/451)
+- 【fix】修复了 `Nextjs` 中部分情况会出现 `Module not found` 的错误 [#451](https://github.com/lakphy/simple-code-inspector/pull/451)
 
 ## 1.3.4
 
-- 【feat】支持 `Kiro` IDE 的识别 [#447](https://github.com/zh-lx/code-inspector/pull/447)
 
 ## 1.3.3
 
-- 【fix】兼容了无写文件权限时 server 无法正常启动的问题 [#445](https://github.com/zh-lx/code-inspector/pull/445)
+- 【fix】兼容了无写文件权限时 server 无法正常启动的问题 [#445](https://github.com/lakphy/simple-code-inspector/pull/445)
 
 ## 1.3.2
 
-- 【feat】支持了通过 `code-inspector-ignore` 或 `code-inspector-disable` 注释来忽略某些文件 [#443](https://github.com/zh-lx/code-inspector/pull/443)
-- 【fix】修复了在 nextjs 中使用时，当编译出错后 server 会退出并无法自动重启的问题 [#442](https://github.com/zh-lx/code-inspector/pull/442)
+- 【feat】支持了通过 `code-inspector-ignore` 或 `code-inspector-disable` 注释来忽略某些文件 [#443](https://github.com/lakphy/simple-code-inspector/pull/443)
+- 【fix】修复了在 nextjs 中使用时，当编译出错后 server 会退出并无法自动重启的问题 [#442](https://github.com/lakphy/simple-code-inspector/pull/442)
 
 ## 1.3.1
 
-- 【fix】修复了在 `webpack` 中使用 `cache` 时，二次启动后请求失败的问题 [#438](https://github.com/zh-lx/code-inspector/pull/438)
-- 【fix】修复了按下 `hotKeys` 会阻塞原本的 `keydown` 事件的问题 [#437](https://github.com/zh-lx/code-inspector/pull/437)
+- 【fix】修复了在 `webpack` 中使用 `cache` 时，二次启动后请求失败的问题 [#438](https://github.com/lakphy/simple-code-inspector/pull/438)
+- 【fix】修复了按下 `hotKeys` 会阻塞原本的 `keydown` 事件的问题 [#437](https://github.com/lakphy/simple-code-inspector/pull/437)
 
 ## 1.3.0
 
-- 【feat】兼容了 `nextjs 16.x` 及以上版本的项目 [#401](https://github.com/zh-lx/code-inspector/pull/401)
-- 【feat】支持使用时切换 `locate/copy/target` 等功能的状态 [#424](https://github.com/zh-lx/code-inspector/pull/424)
-- 【feat】新增 `server` 参数以关闭本地 node server 的启动 [#424](https://github.com/zh-lx/code-inspector/pull/424)
-- 【feat】增加了对 `Codebuddy CN` 和 `Antigravity` 编辑器的识别 [#427](https://github.com/zh-lx/code-inspector/pull/427)
+- 【feat】兼容了 `nextjs 16.x` 及以上版本的项目 [#401](https://github.com/lakphy/simple-code-inspector/pull/401)
+- 【feat】支持使用时切换 `locate/copy/target` 等功能的状态 [#424](https://github.com/lakphy/simple-code-inspector/pull/424)
+- 【feat】新增 `server` 参数以关闭本地 node server 的启动 [#424](https://github.com/lakphy/simple-code-inspector/pull/424)
 
 ## 1.2.10
 
-- 【fix】增加了 `nextjs` 可识别的文件范围 [#399](https://github.com/zh-lx/code-inspector/pull/399)
+- 【fix】增加了 `nextjs` 可识别的文件范围 [#399](https://github.com/lakphy/simple-code-inspector/pull/399)
 
 ## 1.2.9
 
-- 【fix】修复了在 `turbopack` 中使用时与 `middleware` 不兼容的问题 [#398](https://github.com/zh-lx/code-inspector/pull/398)
+- 【fix】修复了在 `turbopack` 中使用时与 `middleware` 不兼容的问题 [#398](https://github.com/lakphy/simple-code-inspector/pull/398)
 
 ## 1.2.8
 
-- 【fix】修复了在关于 `Maximum call stack size exceeded` 的报错问题 [#396](https://github.com/zh-lx/code-inspector/pull/396)
+- 【fix】修复了在关于 `Maximum call stack size exceeded` 的报错问题 [#396](https://github.com/lakphy/simple-code-inspector/pull/396)
 
 ## 1.2.7
 
-- 【fix】修复了在有 `app.ts` 文件的 `mako` 项目中的使用报错问题 [#392](https://github.com/zh-lx/code-inspector/pull/392)
-- 【fix】修复了在多 page 的 nextjs 项目中失效的问题 [#391](https://github.com/zh-lx/code-inspector/pull/391)
+- 【fix】修复了在有 `app.ts` 文件的 `mako` 项目中的使用报错问题 [#392](https://github.com/lakphy/simple-code-inspector/pull/392)
+- 【fix】修复了在多 page 的 nextjs 项目中失效的问题 [#391](https://github.com/lakphy/simple-code-inspector/pull/391)
 
 ## 1.2.6
 
-- 【fix】兼容了在 `turbopack` 中与其他 `loader` 共同使用的问题 [#386](https://github.com/zh-lx/code-inspector/pull/386)
+- 【fix】兼容了在 `turbopack` 中与其他 `loader` 共同使用的问题 [#386](https://github.com/lakphy/simple-code-inspector/pull/386)
 
 ## 1.2.5
 
-- 【fix】重新修复了 `turbopack` 中 `address already in use` 的报错问题 [#384](https://github.com/zh-lx/code-inspector/pull/384)
+- 【fix】重新修复了 `turbopack` 中 `address already in use` 的报错问题 [#384](https://github.com/lakphy/simple-code-inspector/pull/384)
 
 ## 1.2.4
 
-- 【feat】优化了定位文件时打开 editor 的速度 [#381](https://github.com/zh-lx/code-inspector/pull/381)
-- 【feat】支持 `Qoder` 编辑器的识别 [#381](https://github.com/zh-lx/code-inspector/pull/381)
-- 【fix】修复了 `turbopack` 中 `client code` 重复注入多个文件的问题 [#380](https://github.com/zh-lx/code-inspector/pull/380)
+- 【fix】修复了 `turbopack` 中 `client code` 重复注入多个文件的问题 [#380](https://github.com/lakphy/simple-code-inspector/pull/380)
 
 ## 1.2.3
 
-- 【feat】增加了 `skipSnippets` 参数，支持用户自定义跳过注入的代码片段 [#375](https://github.com/zh-lx/code-inspector/pull/375)
-- 【fix】兼容了 `.mjs` 格式的 `next.config.mjs` 文件 [#374](https://github.com/zh-lx/code-inspector/pull/374)
-- 【fix】修复了 `turbopack` 中 `address already in use` 的报错问题 [#373](https://github.com/zh-lx/code-inspector/pull/373)
+- 【feat】增加了 `skipSnippets` 参数，支持用户自定义跳过注入的代码片段 [#375](https://github.com/lakphy/simple-code-inspector/pull/375)
+- 【fix】兼容了 `.mjs` 格式的 `next.config.mjs` 文件 [#374](https://github.com/lakphy/simple-code-inspector/pull/374)
+- 【fix】修复了 `turbopack` 中 `address already in use` 的报错问题 [#373](https://github.com/lakphy/simple-code-inspector/pull/373)
 
 ## 1.2.2
 
-- 【fix】修复了在 turbopack 中 `Error: Cannot find module '@code-inspector/webpack/dist/loader.js'` 的报错问题 [#369](https://github.com/zh-lx/code-inspector/pull/369)
+- 【fix】修复了在 turbopack 中 `Error: Cannot find module '@simple-code-inspector/webpack/dist/loader.js'` 的报错问题 [#369](https://github.com/lakphy/simple-code-inspector/pull/369)
 
 ## 1.2.1
 
-- 【fix】修复了在 turbopack 中 `Error: Cannot find module '@code-inspector/webpack/dist/loader.js'` 的报错问题 [#367](https://github.com/zh-lx/code-inspector/pull/367)
+- 【fix】修复了在 turbopack 中 `Error: Cannot find module '@simple-code-inspector/webpack/dist/loader.js'` 的报错问题 [#367](https://github.com/lakphy/simple-code-inspector/pull/367)
 
 ## 1.2.0
 
-- 【feat】增加了关于 `vite` 中插件配置顺序不正确时的提示 [#365](https://github.com/zh-lx/code-inspector/pull/365)
-- 【feat】触发 `trackCode` 功能时增加了 `code-inspector:trackCode` 的自定义事件 [#364](https://github.com/zh-lx/code-inspector/pull/364)
+- 【feat】增加了关于 `vite` 中插件配置顺序不正确时的提示 [#365](https://github.com/lakphy/simple-code-inspector/pull/365)
+- 【feat】触发 `trackCode` 功能时增加了 `code-inspector:trackCode` 的自定义事件 [#364](https://github.com/lakphy/simple-code-inspector/pull/364)
 
 ## 1.1.1
 
-- 【fix】修复了安装报错的问题 [9694900bb](https://github.com/zh-lx/code-inspector/commit/9694900bbde7b254184532b8eda10a3cad105a91)
+- 【fix】修复了安装报错的问题 [9694900bb](https://github.com/lakphy/simple-code-inspector/commit/9694900bbde7b254184532b8eda10a3cad105a91)
 
 ## 1.1.0
 
-- 【feat】支持了 `mako` 作为 bundler 的项目 [#361](https://github.com/zh-lx/code-inspector/pull/361)
+- 【feat】支持了 `mako` 作为 bundler 的项目 [#361](https://github.com/lakphy/simple-code-inspector/pull/361)
 
 ## 1.0.5
 
-- 【fix】修复了 `nextjs` 中使用 `webpack` 作为 bundler 时，插件不生效的问题 [#359](https://github.com/zh-lx/code-inspector/pull/359)
+- 【fix】修复了 `nextjs` 中使用 `webpack` 作为 bundler 时，插件不生效的问题 [#359](https://github.com/lakphy/simple-code-inspector/pull/359)
 
 ## 1.0.4
 
-- 【feat】支持了 `.env.local` 文件部分情况下读取失败的问题 [#356](https://github.com/zh-lx/code-inspector/pull/356)
+- 【feat】支持了 `.env.local` 文件部分情况下读取失败的问题 [#356](https://github.com/lakphy/simple-code-inspector/pull/356)
 
 ## 1.0.3
 
-- 【fix】再次修复了 `nextjs 15.x(turbopack)` 中，入口文件声明了 `use client` 的报错问题 [#355](https://github.com/zh-lx/code-inspector/pull/355)
+- 【fix】再次修复了 `nextjs 15.x(turbopack)` 中，入口文件声明了 `use client` 的报错问题 [#355](https://github.com/lakphy/simple-code-inspector/pull/355)
 
 ## 1.0.2
 
-- 【feat】支持了 codebuddy 编辑器的识别 [#354](https://github.com/zh-lx/code-inspector/pull/354)
 
 ## 1.0.1
 
-- 【fix】修复了 `nextjs 15.x(turbopack)` 中，入口文件声明了 `use client` 的报错问题 [#352](https://github.com/zh-lx/code-inspector/pull/352)
+- 【fix】修复了 `nextjs 15.x(turbopack)` 中，入口文件声明了 `use client` 的报错问题 [#352](https://github.com/lakphy/simple-code-inspector/pull/352)
 
 ## 1.0.0 🎉
 
 经过长时间的迭代，目前 `code-inspector` 的功能已经足够完善且趋于稳定，因此我很高兴在今天发布 `1.0.0` 版本。此次更新主要内容如下：
 
-- 【feat】增加对 `nextjs 15.x(turbopack)` 的支持 [#349](https://github.com/zh-lx/code-inspector/pull/349)
-- 【feat】较为完善的右键节点树选择能力 [#347](https://github.com/zh-lx/code-inspector/pull/347)
+- 【feat】增加对 `nextjs 15.x(turbopack)` 的支持 [#349](https://github.com/lakphy/simple-code-inspector/pull/349)
+- 【feat】较为完善的右键节点树选择能力 [#347](https://github.com/lakphy/simple-code-inspector/pull/347)
 
 
 ## 0.20.17
 
-- 【feat】增加 `behavior.target` 参数支持自定义跳转路径 [#342](https://github.com/zh-lx/code-inspector/pull/342)
+- 【feat】增加 `behavior.target` 参数支持自定义跳转路径 [#342](https://github.com/lakphy/simple-code-inspector/pull/342)
 
 ## 0.20.16
 
-- 【perf】支持通过 PID 识别用户当前使用的 IDE [#340](https://github.com/zh-lx/code-inspector/pull/340)
-- 【feat】支持 `Comate` 编辑器的识别 [#340](https://github.com/zh-lx/code-inspector/pull/340)
-- 【fix】修复了 `exclude` 参数在 `webpack/rspack` 中的表现与 `vite/esbuild` 中表现不一致的问题 [#339](https://github.com/zh-lx/code-inspector/pull/339)
+- 【fix】修复了 `exclude` 参数在 `webpack/rspack` 中的表现与 `vite/esbuild` 中表现不一致的问题 [#339](https://github.com/lakphy/simple-code-inspector/pull/339)
 
 ## 0.20.15
 
-- 【fix】修复了 `exclude` 参数在 vite 和 esbuild 中不生效的问题 [#331](https://github.com/zh-lx/code-inspector/pull/331)
+- 【fix】修复了 `exclude` 参数在 vite 和 esbuild 中不生效的问题 [#331](https://github.com/lakphy/simple-code-inspector/pull/331)
 
 ## 0.20.14
 
-- 【fix】修复了微前端主子应用不在同一仓库下， `pathType` 为 `absoulte` 时也无法打开子应用源码的问题 [#329](https://github.com/zh-lx/code-inspector/pull/329)
+- 【fix】修复了微前端主子应用不在同一仓库下， `pathType` 为 `absoulte` 时也无法打开子应用源码的问题 [#329](https://github.com/lakphy/simple-code-inspector/pull/329)
 
 ## 0.20.13
 
-- 【fix】禁止打开不属于项目的文件 [#327](https://github.com/zh-lx/code-inspector/pull/327)
+- 【fix】禁止打开不属于项目的文件 [#327](https://github.com/lakphy/simple-code-inspector/pull/327)
 
 ## 0.20.12
 
-- 【fix】修复了 `vue` 项目中使用 `pug` 语法部分场景构建错误的问题 [#321](https://github.com/zh-lx/code-inspector/pull/321)
+- 【fix】修复了 `vue` 项目中使用 `pug` 语法部分场景构建错误的问题 [#321](https://github.com/lakphy/simple-code-inspector/pull/321)
 
 ## 0.20.11
 
-- 【feat】支持了 `vue` 文件中通过 `<template src="xxx.html">` 的方式引入的 `html` 文件的源码定位 [#319](https://github.com/zh-lx/code-inspector/pull/319)、[#320](https://github.com/zh-lx/code-inspector/pull/320)
+- 【feat】支持了 `vue` 文件中通过 `<template src="xxx.html">` 的方式引入的 `html` 文件的源码定位 [#319](https://github.com/lakphy/simple-code-inspector/pull/319)、[#320](https://github.com/lakphy/simple-code-inspector/pull/320)
 
 ## 0.20.10
 
-- 【fix】兼容了使用了 typescript 和 less/scss 等语法的 svelte 代码 [#311](https://github.com/zh-lx/code-inspector/pull/311)
-- 【fix】适配了 idea 在 linux 系统中无法识别的问题 [#312](https://github.com/zh-lx/code-inspector/pull/312)
+- 【fix】兼容了使用了 typescript 和 less/scss 等语法的 svelte 代码 [#311](https://github.com/lakphy/simple-code-inspector/pull/311)
+- 【fix】适配了 idea 在 linux 系统中无法识别的问题 [#312](https://github.com/lakphy/simple-code-inspector/pull/312)
 
 ## 0.20.9
 
-- 【fix】修复了在 `trae CN` 版本无法识别的问题 [#308](https://github.com/zh-lx/code-inspector/pull/308)
 
 ## 0.20.8
 
-- 【fix】修复了在 `rspack` 中使用 `persistent` 缓存且插件未设置 `cache: true` 时的报错问题 [#305](https://github.com/zh-lx/code-inspector/pull/305)
+- 【fix】修复了在 `rspack` 中使用 `persistent` 缓存且插件未设置 `cache: true` 时的报错问题 [#305](https://github.com/lakphy/simple-code-inspector/pull/305)
 
 ## 0.20.7
 
-- 【fix】修复了在 `rspack` 中使用 `persistent` 缓存时，二次启动项目后通信失败的问题 [#304](https://github.com/zh-lx/code-inspector/pull/304)
+- 【fix】修复了在 `rspack` 中使用 `persistent` 缓存时，二次启动项目后通信失败的问题 [#304](https://github.com/lakphy/simple-code-inspector/pull/304)
 
 ## 0.20.6
 
-- 【feat】支持了 Windows 系统中 `trae CN.exe` 中文版的识别 [#300](https://github.com/zh-lx/code-inspector/pull/300)
 
 ## 0.20.5
 
-- 【feat】支持了 `trae` 中文版的识别 [#299](https://github.com/zh-lx/code-inspector/pull/299)
 
 ## 0.20.4
 
-- 【fix】修复了 pug 语法在 HMR 后无法定位的问题，支持了类字面值、ID 字面值、`Case`、`Each`、`While`、`When`、`Code`、`Conditional` 等 pug 语法 [#297](https://github.com/zh-lx/code-inspector/pull/297)
+- 【fix】修复了 pug 语法在 HMR 后无法定位的问题，支持了类字面值、ID 字面值、`Case`、`Each`、`While`、`When`、`Code`、`Conditional` 等 pug 语法 [#297](https://github.com/lakphy/simple-code-inspector/pull/297)
 
 ## 0.20.3
 
-- 【fix】修复了客户端组件重复注册卸载导致交互不生效的问题 [#295](https://github.com/zh-lx/code-inspector/pull/295)
+- 【fix】修复了客户端组件重复注册卸载导致交互不生效的问题 [#295](https://github.com/lakphy/simple-code-inspector/pull/295)
 
 ## 0.20.2
 
-- 【feat】新增 `cache` API，允许用户在 `webpack/rspack` 且使用了 `filesystem` 缓存的项目中复用缓存能力 [#292](https://github.com/zh-lx/code-inspector/pull/292)
-- 【fix】修复了当宿主页面元素设置了 `mousemove` 事件且内部有 `stopPropagation` 时，会阻塞插件交互的问题 [#291](https://github.com/zh-lx/code-inspector/pull/291)
+- 【feat】新增 `cache` API，允许用户在 `webpack/rspack` 且使用了 `filesystem` 缓存的项目中复用缓存能力 [#292](https://github.com/lakphy/simple-code-inspector/pull/292)
+- 【fix】修复了当宿主页面元素设置了 `mousemove` 事件且内部有 `stopPropagation` 时，会阻塞插件交互的问题 [#291](https://github.com/lakphy/simple-code-inspector/pull/291)
 
 ## 0.20.1
 
-- 【fix】修复了在 webpack 中使用 vue pug 语法时，无法定位到源码的问题 [#284](https://github.com/zh-lx/code-inspector/pull/284)
-- 【feat】支持了 Windows 系统中 Trae 编辑器的识别 [#287](https://github.com/zh-lx/code-inspector/pull/287)
+- 【fix】修复了在 webpack 中使用 vue pug 语法时，无法定位到源码的问题 [#284](https://github.com/lakphy/simple-code-inspector/pull/284)
 
 ## 0.20.0
 
-- 【fix】修复了 webpack v5 版本以上关于 `Compilation.assets` 的告警问题 [#280](https://github.com/zh-lx/code-inspector/pull/280)
-- 【feat】支持通过 `pathType` 参数指定 `data-insp-path` 属性的路径类型，默认使用相对路径，可选使用绝对路径 [#278](https://github.com/zh-lx/code-inspector/pull/278)
-- 【feat】支持 [trae](https://www.trae.ai) 编辑器的识别 [#277](https://github.com/zh-lx/code-inspector/pull/277)
-- 【feat】支持了右键筛选元素父组件的功能 [#272](https://github.com/zh-lx/code-inspector/pull/272)
+- 【fix】修复了 webpack v5 版本以上关于 `Compilation.assets` 的告警问题 [#280](https://github.com/lakphy/simple-code-inspector/pull/280)
+- 【feat】支持通过 `pathType` 参数指定 `data-insp-path` 属性的路径类型，默认使用相对路径，可选使用绝对路径 [#278](https://github.com/lakphy/simple-code-inspector/pull/278)
+- 【feat】支持了右键筛选元素父组件的功能 [#272](https://github.com/lakphy/simple-code-inspector/pull/272)
 
 ## 0.19.2
 
-- 【fix】修复了项目没有使用 `git` 时的编译报错问题 [#269](https://github.com/zh-lx/code-inspector/pull/269)
+- 【fix】修复了项目没有使用 `git` 时的编译报错问题 [#269](https://github.com/lakphy/simple-code-inspector/pull/269)
 
 ## 0.19.1
 
-- 【feat】支持通过 `exclude` 参数指定不参与编译的文件 [#266](https://github.com/zh-lx/code-inspector/pull/266)
+- 【feat】支持通过 `exclude` 参数指定不参与编译的文件 [#266](https://github.com/lakphy/simple-code-inspector/pull/266)
 
 ## 0.19.0
 
-- 【feat】支持通过 `printServer` 参数指定是否在控制台中打印 server 的启动信息 [#265](https://github.com/zh-lx/code-inspector/pull/265)
-- 【feat】支持通过 `port` 参数指定 server 的启动端口 [#260](https://github.com/zh-lx/code-inspector/pull/260)
-- 【fix】修复了在 `nextjs` 项目中使用 `instrumentation.ts` 功能时报错或者插件不生效的问题 [#264](https://github.com/zh-lx/code-inspector/pull/264)
-- 【fix】修复了修改 `vite.config.ts` 文件后服务端口会重复启动多个的问题 [#261](https://github.com/zh-lx/code-inspector/pull/261)
-- 【perf】DOM 上的 `data-insp-path` 属性从绝对路径优化为相对路径 [#256](https://github.com/zh-lx/code-inspector/pull/256)
+- 【feat】支持通过 `printServer` 参数指定是否在控制台中打印 server 的启动信息 [#265](https://github.com/lakphy/simple-code-inspector/pull/265)
+- 【feat】支持通过 `port` 参数指定 server 的启动端口 [#260](https://github.com/lakphy/simple-code-inspector/pull/260)
+- 【fix】修复了在 `nextjs` 项目中使用 `instrumentation.ts` 功能时报错或者插件不生效的问题 [#264](https://github.com/lakphy/simple-code-inspector/pull/264)
+- 【fix】修复了修改 `vite.config.ts` 文件后服务端口会重复启动多个的问题 [#261](https://github.com/lakphy/simple-code-inspector/pull/261)
+- 【perf】DOM 上的 `data-insp-path` 属性从绝对路径优化为相对路径 [#256](https://github.com/lakphy/simple-code-inspector/pull/256)
 
 ## 0.18.3
 
-- 【feat】支持了 `Windsurf` 的识别 [#254](https://github.com/zh-lx/code-inspector/pull/254)
 
 ## 0.18.2
 
-- 【perf】优化交互体验：优先显示组件被调用处的源码位置 [#248](https://github.com/zh-lx/code-inspector/pull/248)
+- 【perf】优化交互体验：优先显示组件被调用处的源码位置 [#248](https://github.com/lakphy/simple-code-inspector/pull/248)
 
 ## 0.18.1
 
-- 【feat】增加 `mappings` 参数，支持用户自定义源码文件路径映射关系，作为 `include` 的补充 [#242](https://github.com/zh-lx/code-inspector/pull/242)
+- 【feat】增加 `mappings` 参数，支持用户自定义源码文件路径映射关系，作为 `include` 的补充 [#242](https://github.com/lakphy/simple-code-inspector/pull/242)
 
 ## 0.18.0
 
-- 【feat】支持通过 `include` 指定 `node_modules` 中的包名以让其内部文件参与编译注入 `path` 信息 [#241](https://github.com/zh-lx/code-inspector/pull/241)
+- 【feat】支持通过 `include` 指定 `node_modules` 中的包名以让其内部文件参与编译注入 `path` 信息 [#241](https://github.com/lakphy/simple-code-inspector/pull/241)
 
 ## 0.17.9
 
-- 【perf】优化在移动端的交互体验 [#240](https://github.com/zh-lx/code-inspector/pull/240)
-- 【perf】提升在 Windows 系统中 IDE 识别唤起的性能 [#239](https://github.com/zh-lx/code-inspector/pull/239)
+- 【perf】优化在移动端的交互体验 [#240](https://github.com/lakphy/simple-code-inspector/pull/240)
 
 ## 0.17.8
 
-- 【fix】修复了点击 `disabled` DOM 的子元素时不生效的问题 [#237](https://github.com/zh-lx/code-inspector/pull/237)
+- 【fix】修复了点击 `disabled` DOM 的子元素时不生效的问题 [#237](https://github.com/lakphy/simple-code-inspector/pull/237)
 
 ## 0.17.7
 
-- 【fix】修复了在 webpack 部分版本中使用时，构建错误的问题 [#234](https://github.com/zh-lx/code-inspector/pull/234)
+- 【fix】修复了在 webpack 部分版本中使用时，构建错误的问题 [#234](https://github.com/lakphy/simple-code-inspector/pull/234)
 
 ## 0.17.6
 
-- 【fix】修复构建错误问题 [#232](https://github.com/zh-lx/code-inspector/pull/232)
+- 【fix】修复构建错误问题 [#232](https://github.com/lakphy/simple-code-inspector/pull/232)
 
 ## 0.17.5
 
-- 【perf】`injectTo` 参数支持传入数组，以支持同时注入多个文件 [#231](https://github.com/zh-lx/code-inspector/pull/231)
-- 【feat】webpack 会向 html 文件也注入 client 代码，以支持部分 MPA 类型的项目 [#230](https://github.com/zh-lx/code-inspector/pull/230)
+- 【perf】`injectTo` 参数支持传入数组，以支持同时注入多个文件 [#231](https://github.com/lakphy/simple-code-inspector/pull/231)
+- 【feat】webpack 会向 html 文件也注入 client 代码，以支持部分 MPA 类型的项目 [#230](https://github.com/lakphy/simple-code-inspector/pull/230)
 
 ## 0.17.4
 
-- 【fix】修复了在 MPA 项目中使用时，只会在第一个 html 页面中会生效的问题 [#229](https://github.com/zh-lx/code-inspector/pull/229)
+- 【fix】修复了在 MPA 项目中使用时，只会在第一个 html 页面中会生效的问题 [#229](https://github.com/lakphy/simple-code-inspector/pull/229)
 
 ## 0.17.3
 
-- 【fix】修复了在 `无界` 这种 web component 方案中使用时，无法筛选 web component `ShadowRoot` 内部元素的问题 [#227](https://github.com/zh-lx/code-inspector/pull/227)
-- 【fix】修复了在 Nextjs v15+ 项目中使用 `hideDomPathAttr` 属性时，控制台会打印 hydrate 警告的问题 [#226](https://github.com/zh-lx/code-inspector/pull/226)
+- 【fix】修复了在 `无界` 这种 web component 方案中使用时，无法筛选 web component `ShadowRoot` 内部元素的问题 [#227](https://github.com/lakphy/simple-code-inspector/pull/227)
+- 【fix】修复了在 Nextjs v15+ 项目中使用 `hideDomPathAttr` 属性时，控制台会打印 hydrate 警告的问题 [#226](https://github.com/lakphy/simple-code-inspector/pull/226)
 
 ## 0.17.2
 
-- 【fix】修复 windows 系统中对于中文及特殊字符的兼容 [#225](https://github.com/zh-lx/code-inspector/pull/225)
+- 【fix】修复 windows 系统中对于中文及特殊字符的兼容 [#225](https://github.com/lakphy/simple-code-inspector/pull/225)
 
 ## 0.17.1
 
-- 【fix】修复 `console.warn` 及 `console.error` 前两个参数非 `string` 类型时的报错问题 [#223](https://github.com/zh-lx/code-inspector/pull/223)
+- 【fix】修复 `console.warn` 及 `console.error` 前两个参数非 `string` 类型时的报错问题 [#223](https://github.com/lakphy/simple-code-inspector/pull/223)
 
 ## 0.17.0
 
-- 【refactor】优化了 IDE 的识别逻辑，并支持更多 IDE 的识别 [#222](https://github.com/zh-lx/code-inspector/pull/222)
 
 ## 0.16.2
 
-- 【fix】修复了在 Nextjs 项目中使用 `hideDomPathAttr` 属性时，控制台会打印 hydrate 警告的问题 [#219](https://github.com/zh-lx/code-inspector/pull/219)
+- 【fix】修复了在 Nextjs 项目中使用 `hideDomPathAttr` 属性时，控制台会打印 hydrate 警告的问题 [#219](https://github.com/lakphy/simple-code-inspector/pull/219)
 
 ## 0.16.1
 
-- 【fix】修复了低版本浏览器不支持 `globalThis` 变量的问题 [#210](https://github.com/zh-lx/code-inspector/pull/210)
-- 【refactor】优化判断 `development` 环境的代码 [#209](https://github.com/zh-lx/code-inspector/pull/209)
+- 【fix】修复了低版本浏览器不支持 `globalThis` 变量的问题 [#210](https://github.com/lakphy/simple-code-inspector/pull/210)
+- 【refactor】优化判断 `development` 环境的代码 [#209](https://github.com/lakphy/simple-code-inspector/pull/209)
 
 ## 0.16.0
 
-- 【feat】内置了 cursor IDE 的识别 [#207](https://github.com/zh-lx/code-inspector/pull/207)
-- 【perf】优化客户端代码的注入逻辑，默认通过 `code` 方式注入，对于 Nextjs 项目会自动识别并通过 `file` 方式注入 [#203](https://github.com/zh-lx/code-inspector/pull/203)
+- 【perf】优化客户端代码的注入逻辑，默认通过 `code` 方式注入，对于 Nextjs 项目会自动识别并通过 `file` 方式注入 [#203](https://github.com/lakphy/simple-code-inspector/pull/203)
 
 ## 0.15.2
 
-- 【perf】优化控制台提示 [#199](https://github.com/zh-lx/code-inspector/pull/199)
+- 【perf】优化控制台提示 [#199](https://github.com/lakphy/simple-code-inspector/pull/199)
 
 ## 0.15.1
 
-- 【fix】修复 Next.js 中编译后偶尔不生效的问题 [#198](https://github.com/zh-lx/code-inspector/pull/198)
+- 【fix】修复 Next.js 中编译后偶尔不生效的问题 [#198](https://github.com/lakphy/simple-code-inspector/pull/198)
 
 ## 0.15.0
 
-- 【fix】修复指定 IDE 完整路径时代码定位无法精确到行/列的问题 [#191](https://github.com/zh-lx/code-inspector/pull/191)、[#193](https://github.com/zh-lx/code-inspector/pull/193)
-- 【feat】支持在 esbuild 中使用 [#189](https://github.com/zh-lx/code-inspector/pull/189)
+- 【feat】支持在 esbuild 中使用 [#189](https://github.com/lakphy/simple-code-inspector/pull/189)
 
 ## 0.14.2
 
@@ -413,8 +394,6 @@
 
 ## 0.9.3
 
-- 【feat】优化在 windows 系统上同时打开多个 IDE 时唤起的优先级
-- 【fix】修复 windows 上 IDE 路径存在中文时，无法自动识别打开的问题
 
 ## 0.9.2
 
@@ -430,16 +409,12 @@
 
 ## 0.8.1
 
-- 【fix】修复了在 windows 中运行多个 IDE 时，指定 IDE 为 `code` 无法打开 vscode 的问题
 - 【fix】修复了当 `body` 设置了 `transform` 样式时，遮罩层出现的位置错误的问题
 - 【fix】修复了代码中使用 `debugger` 调试时，debugger 位置指向错误的问题
 
 ## 0.8.0
 
-- 【feat】增加 `pathFormat` 参数，支持自定义打开 IDE 时的命令格式
-- 【feat】增加 `openIn` 参数，支持打开 IDE 窗口时复用当前窗口还是在新窗口打开
 - 【fix】修复在 vue 中报 `Extraneous non-props attributes` 的警告
-- 【fix】修复非 https 中使用 `behavior.copy` 失败的问题
 
 ## 0.7.0
 
@@ -488,7 +463,6 @@
 
 ## 0.4.6
 
-- 【fix】修复 windows 系统中 vscode 安装路径存在中文时，无法打开 vscode 对应代码的问题
 - 【perf】优化 `webpack/rspack` 中 `inject-loader` 的缓存逻辑
 
 ## 0.4.5
@@ -523,7 +497,6 @@
 ## 0.3.1
 
 - 【fix】修复在 webpack 中与 `eslint-loader` 插件使用不兼容的问题
-- 【fix】修复在 macOS 系统中无法自动识别 `code-insiders` IDE 的问题
 
 ## 0.3.0
 
@@ -542,7 +515,6 @@
 
 ## 0.1.12
 
-- 【feat】增加 `hideConsole` 和 `editor` 参数
 
 ## 0.1.11
 

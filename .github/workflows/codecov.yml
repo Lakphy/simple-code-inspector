@@ -37,4 +37,4 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: zh-lx/code-inspector
+          slug: lakphy/simple-code-inspector

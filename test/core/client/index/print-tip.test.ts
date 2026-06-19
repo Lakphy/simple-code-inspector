@@ -37,7 +37,7 @@ describe('printTip', () => {
 
     // 验证包含 Windows 快捷键
     const logMessage = consoleSpy.mock.calls[1][0];
-    expect(logMessage).toContain('[code-inspector-plugin]');
+    expect(logMessage).toContain('[simple-code-inspector-plugin]');
     expect(logMessage).toContain('Shift');
     expect(logMessage).toContain('Alt');
   });
@@ -52,7 +52,7 @@ describe('printTip', () => {
 
     expect(consoleSpy).toHaveBeenCalled();
     const logMessage = consoleSpy.mock.calls[1][0];
-    expect(logMessage).toContain('[code-inspector-plugin]');
+    expect(logMessage).toContain('[simple-code-inspector-plugin]');
     expect(logMessage).toContain('Shift');
   });
 
@@ -69,28 +69,22 @@ describe('printTip', () => {
 
     // 验证包含 Mac 快捷键
     const logMessage = consoleSpy.mock.calls[1][0];
-    expect(logMessage).toContain('[code-inspector-plugin]');
+    expect(logMessage).toContain('[simple-code-inspector-plugin]');
     expect(logMessage).toContain('shift');
     expect(logMessage).toContain('⌥option');
   });
 
-  it('should print None when no features are active', () => {
+  it('should mention clicking the DOM to copy the source code location', () => {
     Object.defineProperty(navigator, 'userAgent', {
       value: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
       configurable: true,
     });
 
     component.hotKeys = 'shiftKey,altKey';
-    // Disable all features
-    component.internalLocate = false;
-    component.internalCopy = false;
-    component.internalTarget = false;
-
     component.printTip();
 
     expect(consoleSpy).toHaveBeenCalled();
     const logMessage = consoleSpy.mock.calls[1][0];
-    expect(logMessage).toContain('None');
+    expect(logMessage).toContain('copy');
   });
-
 });

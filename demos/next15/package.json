@@ -14,7 +14,7 @@
     "next": "15.1.9"
   },
   "devDependencies": {
-    "code-inspector-plugin": "workspace:*",
+    "simple-code-inspector-plugin": "workspace:*",
     "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",

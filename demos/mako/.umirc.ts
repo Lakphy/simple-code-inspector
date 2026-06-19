@@ -1,5 +1,5 @@
 import { defineConfig } from 'umi';
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 export default defineConfig({
   routes: [

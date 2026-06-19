@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   CodeOptions: {},
   RecordInfo: {},
   isDev: vi.fn((dev: boolean | undefined, condition: boolean) => dev ?? condition),
@@ -21,7 +21,7 @@ import {
   resolveWebpackEntry,
   TurbopackCodeInspectorPlugin,
 } from '@/turbopack/src/index';
-import { isDev, isNextGET16 } from '@code-inspector/core';
+import { isDev, isNextGET16 } from '@simple-code-inspector/core';
 
 describe('TurbopackCodeInspectorPlugin', () => {
   const originalRequire = global.require;

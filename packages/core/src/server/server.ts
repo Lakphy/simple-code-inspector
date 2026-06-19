@@ -1,14 +1,20 @@
-// 启动本地接口，访问时唤起vscode
+// 启动本地接口，访问时将源码位置复制到剪贴板
 import http from 'http';
 import path from 'path';
 import chalk from 'chalk';
 import net from 'net';
 import { execSync } from 'child_process';
 import portFinder from 'portfinder';
-import { launchIDE } from 'launch-ide';
-import { DefaultPort } from '../shared/constant';
-import { getIP, getProjectRecord, setProjectRecord, findPort } from '../shared';
+import { DefaultPort, DefaultCopyFormat } from '../shared/constant';
+import {
+  getIP,
+  getProjectRecord,
+  setProjectRecord,
+  findPort,
+  formatCopyText,
+} from '../shared';
 import type { PathType, CodeOptions, RecordInfo } from '../shared';
+import { copyToClipboard } from './clipboard';
 
 // 获取项目 git 根目录
 function getProjectRoot(): string {
@@ -44,10 +50,16 @@ export function getRelativeOrAbsolutePath(
 export function createServer(
   callback: (port: number) => any,
   options?: CodeOptions,
-  record?: RecordInfo
+  _record?: RecordInfo
 ) {
-  const server = http.createServer((req: any, res: any) => {
-    // 收到请求唤醒vscode
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': '*',
+    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Private-Network': 'true',
+  };
+  const server = http.createServer(async (req: any, res: any) => {
+    // 收到请求后将源码位置复制到剪贴板
     const params = new URLSearchParams(req.url.slice(1));
     let file = decodeURIComponent(params.get('file') as string);
     if (ProjectRootPath && !path.isAbsolute(file)) {
@@ -58,37 +70,30 @@ export function createServer(
       ProjectRootPath &&
       !file.startsWith(ProjectRootPath)
     ) {
-      res.writeHead(403, {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': '*',
-        'Access-Control-Allow-Headers': '*',
-        'Access-Control-Allow-Private-Network': 'true',
-      });
-      res.end('not allowed to open this file');
+      res.writeHead(403, headers);
+      res.end('not allowed to copy this file');
       return;
     }
     const line = Number(params.get('line'));
     const column = Number(params.get('column'));
-    res.writeHead(200, {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': '*',
-      'Access-Control-Allow-Headers': '*',
-      'Access-Control-Allow-Private-Network': 'true',
-    });
-    res.end('ok');
+    const tag = decodeURIComponent((params.get('name') as string) || '');
     // 调用 hooks
     options?.hooks?.afterInspectRequest?.(options, { file, line, column });
-    // 打开 IDE
-    launchIDE({
+    // 将源码位置复制到剪贴板
+    const text = formatCopyText(options?.copyFormat ?? DefaultCopyFormat, {
       file,
       line,
       column,
-      editor: options?.editor,
-      method: options?.openIn,
-      format: options?.pathFormat,
-      rootDir: record?.envDir,
-      type: options?.launchType,
+      tag,
     });
+    const copied = await copyToClipboard(text);
+    if (copied) {
+      res.writeHead(200, headers);
+      res.end('ok');
+    } else {
+      res.writeHead(500, headers);
+      res.end('failed to copy to clipboard');
+    }
   });
 
   // 寻找可用接口
@@ -155,7 +160,7 @@ export async function startServer(options: CodeOptions, record: RecordInfo) {
           resolve(port);
           if (options.printServer) {
             const info = [
-              chalk.blue('[code-inspector-plugin]'),
+              chalk.blue('[simple-code-inspector-plugin]'),
               'Server is running on:',
               chalk.green(
                 `http://${getIP(options.ip || 'localhost')}:${

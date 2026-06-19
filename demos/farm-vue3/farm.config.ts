@@ -1,6 +1,6 @@
 import { defineConfig } from '@farmfe/core';
 import vue from '@vitejs/plugin-vue';
-import { codeInspectorPlugin } from 'code-inspector-plugin'
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin'
 
 export default defineConfig({
   vitePlugins: [

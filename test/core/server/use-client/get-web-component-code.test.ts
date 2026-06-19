@@ -70,6 +70,25 @@ describe('getWebComponentCode', () => {
     expect(result).toContain('inspector.port = 9999');
   });
 
+  describe('server configuration', () => {
+    it('should enable server requests by default', () => {
+      const options: CodeOptions = {
+        bundler: 'vite',
+      };
+      const result = getWebComponentCode(options, 5678);
+      expect(result).toContain('inspector.serverEnabled = !!true');
+    });
+
+    it('should disable server requests when server is closed', () => {
+      const options: CodeOptions = {
+        bundler: 'vite',
+        server: 'close',
+      };
+      const result = getWebComponentCode(options, 5678);
+      expect(result).toContain('inspector.serverEnabled = !!false');
+    });
+  });
+
   describe('hotKeys configuration', () => {
     it('should use default hotKeys when not specified', () => {
       const options: CodeOptions = {
@@ -164,65 +183,15 @@ describe('getWebComponentCode', () => {
     });
   });
 
-  describe('behavior configuration', () => {
-    it('should default locate to true', () => {
+  describe('behavior (removed)', () => {
+    it('should not emit locate/copy/target attributes (handled server-side now)', () => {
       const options: CodeOptions = {
         bundler: 'vite',
       };
       const result = getWebComponentCode(options, 5678);
-      expect(result).toContain('inspector.locate = !!true');
-    });
-
-    it('should set locate to false when specified', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-        behavior: { locate: false },
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain('inspector.locate = !!false');
-    });
-
-    it('should default copy to false', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain('inspector.copy = false');
-    });
-
-    it('should set copy to true when boolean', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-        behavior: { copy: true },
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain('inspector.copy = true');
-    });
-
-    it('should set copy as string when string is provided', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-        behavior: { copy: 'custom-format' },
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain("inspector.copy = 'custom-format'");
-    });
-
-    it('should default target to empty string', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain("inspector.target = ''");
-    });
-
-    it('should set custom target', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-        behavior: { target: 'http://custom-target.com' },
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain("inspector.target = 'http://custom-target.com'");
+      expect(result).not.toContain('inspector.locate');
+      expect(result).not.toContain('inspector.copy');
+      expect(result).not.toContain('inspector.target');
     });
   });
 
@@ -245,40 +214,13 @@ describe('getWebComponentCode', () => {
     });
   });
 
-  describe('modeKey configuration', () => {
-    it('should default modeKey to z', () => {
+  describe('modeKey (removed)', () => {
+    it('should not emit a modeKey attribute (settings modal removed)', () => {
       const options: CodeOptions = {
         bundler: 'vite',
       };
       const result = getWebComponentCode(options, 5678);
-      expect(result).toContain("inspector.modeKey = 'z'");
-    });
-
-    it('should use custom modeKey', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-        modeKey: 'x',
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain("inspector.modeKey = 'x'");
-    });
-
-    it('should convert modeKey to lowercase', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-        modeKey: 'X',
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain("inspector.modeKey = 'x'");
-    });
-
-    it('should fallback to z when modeKey is empty string', () => {
-      const options: CodeOptions = {
-        bundler: 'vite',
-        modeKey: '',
-      };
-      const result = getWebComponentCode(options, 5678);
-      expect(result).toContain("inspector.modeKey = 'z'");
+      expect(result).not.toContain('inspector.modeKey');
     });
   });
 

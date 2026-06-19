@@ -3,11 +3,10 @@
 The detailed parameter configuration for `codeInspectorPlugin` is shown below:
 
 ```typescript
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 codeInspectorPlugin({
   bundler: 'vite',
-  editor: 'cursor',
   // See below for other properties...
 });
 ```
@@ -19,24 +18,17 @@ codeInspectorPlugin({
 - Available values: `vite / webpack / rspack / esbuild`
 - Description: Specifies the bundler tool used in the current project
 
-## editor
-
-- Optional
-- Type: `string`
-- Available values: [Supported editor list](https://github.com/zh-lx/launch-ide?tab=readme-ov-file#-supported-editors)
-- Description: By default, `code-inspector-plugin` automatically detects and opens your IDE based on the running processes in your system. When multiple IDEs are running simultaneously, the IDE opened by `code-inspector-plugin` might not be the one you want. In this case, you can specify which IDE to open by setting the `editor` parameter. For more details, refer to the [IDE](/guide/ide.html) section
-
 ## dev <Badge type="tip" text="0.5.0+" vertical="middle" />
 
 - Optional
 - Type: `boolean | (() => boolean)`
-- Description: `code-inspector-plugin` automatically determines the current environment based on bundler information and only works in the `development` environment. In some cases, such as older versions of `webpack` or custom environment variables, the `development` environment detection might fail, causing `code-inspector-plugin` to not work. In such cases, you can manually add logic to determine if it's a `development` environment by setting the `dev` parameter to make `code-inspector-plugin` work.
+- Description: `simple-code-inspector-plugin` automatically determines the current environment based on bundler information and only works in the `development` environment. In some cases, such as older versions of `webpack` or custom environment variables, the `development` environment detection might fail, causing `simple-code-inspector-plugin` to not work. In such cases, you can manually add logic to determine if it's a `development` environment by setting the `dev` parameter to make `simple-code-inspector-plugin` work.
 
 ## enforcePre <Badge type="tip" text="0.4.0+" vertical="middle" />
 
 - Optional. Default value is `true`
 - Type: `boolean`
-- Description: Whether to add `enforce: 'pre'` configuration for `code-inspector-plugin`. Some projects (especially those created by `vue-cli`) have built-in `eslint-loader`. If `code-inspector-plugin`'s compilation logic runs before `eslint-loader`'s validation logic, it might cause `eslint-loader` to throw errors. In this case, set this option to `false` to make `code-inspector-plugin`'s compilation logic run after `eslint-loader`'s validation logic.
+- Description: Whether to add `enforce: 'pre'` configuration for `simple-code-inspector-plugin`. Some projects (especially those created by `vue-cli`) have built-in `eslint-loader`. If `simple-code-inspector-plugin`'s compilation logic runs before `eslint-loader`'s validation logic, it might cause `eslint-loader` to throw errors. In this case, set this option to `false` to make `simple-code-inspector-plugin`'s compilation logic run after `eslint-loader`'s validation logic.
 
 ## hotKeys
 
@@ -54,12 +46,4 @@ codeInspectorPlugin({
 
 - Optional. Default value is `true`
 - Type: `boolean`
-- Description: Used with `showSwitch: true`. After triggering the IDE jump feature, it automatically turns off the `switch` functionality. (This is mainly to prevent accidental triggering of the source code location feature when users switch back to the page and it gains focus.)
-
-## launchType <Badge type="tip" text="1.3.5+" vertical="middle" />
-
-- Optional. Default value is `exec`
-- Type: `exec | open`
-- Description: The method for launching the IDE. Only supports MacOS. If the editor is in the support list, it is strongly recommended to set `launchType: 'open'`. The support list can be found at: [which editor supports to be launched by open](https://github.com/zh-lx/launch-ide?tab=readme-ov-file#which-editor-supports-to-be-launched-by-open).
-  - `exec`: use the executable path to open the editor;
-  - `open`: use `open "{editor}://file/xxx/main.jsx:10:20"` to open, it is fast and provides a very smooth experience
+- Description: Used with `showSwitch: true`. After triggering the copy feature, it automatically turns off the `switch` functionality. (This is mainly to prevent accidental triggering of the source code location feature when users switch back to the page and it gains focus.)

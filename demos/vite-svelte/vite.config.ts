@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
-import { codeInspectorPlugin } from 'code-inspector-plugin'
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({

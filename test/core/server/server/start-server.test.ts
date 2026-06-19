@@ -195,7 +195,7 @@ describe('startServer', () => {
     await serverModule.startServer(options, record);
 
     expect(consoleSpy).toHaveBeenCalled();
-    expect(consoleSpy.mock.calls[0]?.[0]).toContain('[code-inspector-plugin]');
+    expect(consoleSpy.mock.calls[0]?.[0]).toContain('[simple-code-inspector-plugin]');
   });
 
   it('should print server info with custom ip', async () => {
@@ -239,7 +239,7 @@ describe('startServer', () => {
     await serverModule.startServer(options, record);
 
     const serverInfoCalls = consoleSpy.mock.calls.filter(
-      (call) => call[0]?.includes?.('[code-inspector-plugin]'),
+      (call) => call[0]?.includes?.('[simple-code-inspector-plugin]'),
     );
 
     expect(serverInfoCalls.length).toBe(0);

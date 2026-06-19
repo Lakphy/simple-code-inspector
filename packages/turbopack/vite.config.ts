@@ -13,8 +13,8 @@ export default defineConfig({
     emptyOutDir: false,
     rollupOptions: {
       external: [
-        '@code-inspector/core',
-        '@code-inspector/webpack',
+        '@simple-code-inspector/core',
+        '@simple-code-inspector/webpack',
         'path',
         'fs',
         'url',

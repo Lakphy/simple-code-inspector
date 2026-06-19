@@ -4,6 +4,68 @@ import fs from 'fs';
 import { JsFileExtList } from './constant';
 import { CodeOptions, Condition, EscapeTags } from './type';
 
+/**
+ * 将源码位置信息格式化为复制到剪贴板的文本
+ * @param format 模版字符串，支持 {file} / {line} / {column} / {tag} 占位符
+ * @param source 源码位置信息
+ */
+export function formatCopyText(
+  format: string,
+  source: { file: string; line: number; column: number; tag: string },
+) {
+  const replacementMap: Record<string, string | number> = {
+    '{file}': source.file,
+    '{line}': source.line,
+    '{column}': source.column,
+    '{tag}': source.tag,
+  };
+  let text = format;
+  for (const placeholder in replacementMap) {
+    text = text.split(placeholder).join(String(replacementMap[placeholder]));
+  }
+  return text;
+}
+
+/**
+ * 读取 cwd 下 `.env.local` 文件中指定 key 的值
+ * 用于 `needEnvInspector` 配置：仅当 `.env.local` 中包含 `CODE_INSPECTOR=true` 时插件才生效
+ * @param key 环境变量名
+ * @param cwd 项目目录，默认为 process.cwd()
+ * @returns 对应的值；不存在时返回 undefined
+ */
+export function getEnvVariable(
+  key: string,
+  cwd: string = process.cwd(),
+): string | undefined {
+  const envPath = path.resolve(cwd, '.env.local');
+  if (!fs.existsSync(envPath)) {
+    return undefined;
+  }
+  const content = fs.readFileSync(envPath, 'utf-8');
+  for (const rawLine of content.split('\n')) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith('#')) {
+      continue;
+    }
+    const eqIndex = line.indexOf('=');
+    if (eqIndex === -1) {
+      continue;
+    }
+    if (line.slice(0, eqIndex).trim() !== key) {
+      continue;
+    }
+    let value = line.slice(eqIndex + 1).trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    return value;
+  }
+  return undefined;
+}
+
 //获取本机ip地址
 export function getIP(ip: boolean | string) {
   if (typeof ip === 'string' && ip !== '') {

@@ -6,9 +6,9 @@
 
 ## 在微前端中使用
 
-如果遇到微前端子项目无法对 DOM 筛选跳转，需要在主项目和子项目中都应用 `code-inspector-plugin` 即可正常使用。
+如果遇到微前端子项目无法对 DOM 筛选复制，需要在主项目和子项目中都应用 `simple-code-inspector-plugin` 即可正常使用。
 
-如果微前端的主子应用分布在多个仓库中，需要为插件添加配置 `pathFormat: 'absolute'`。
+如果微前端的主子应用分布在多个仓库中，需要为插件添加配置 `pathType: 'absolute'`。
 
 ## SSR 场景
 
@@ -16,21 +16,7 @@
 
 ## Eslint Plugin 报错
 
-如果本插件引起了 Eslint Plugin 报错问题，请在 `code-inspector-plugin` 配置中添加 `enforcePre: false`。
-
-## 在 WSL 和 Dev Containers 中使用
-
-可以通过在 wsl 中使用 `which code` 命令找到 vscode remote 的地址，地址差不多长这样：
-
-```bash
-/home/xxx/.vscode-server/bin/dc96b837cf6bb4af9cd736aa3af08cf8279f7685/bin/remote-cli/code
-```
-
-然后在项目根目录下创建一个 `.env.local` 文件，添加如下内容(替换为你的 vscode remote 地址)：
-
-```bash
-CODE_EDITOR=/home/xxx/.vscode-server/bin/dc96b837cf6bb4af9cd736aa3af08cf8279f7685/bin/remote-cli/code
-```
+如果本插件引起了 Eslint Plugin 报错问题，请在 `simple-code-inspector-plugin` 配置中添加 `enforcePre: false`。
 
 ## 如何忽略某些文件
 
@@ -49,4 +35,4 @@ CODE_EDITOR=/home/xxx/.vscode-server/bin/dc96b837cf6bb4af9cd736aa3af08cf8279f768
 
 ## 其他问题
 
-如果遇到无法解决的问题，请 [加入用户群](/more/feedback) 或到 github 提 [issue](https://github.com/zh-lx/code-inspector/issues)，加群咨询能够解决绝大部分问题。
+如果遇到无法解决的问题，请 [加入用户群](/more/feedback) 或到 github 提 [issue](https://github.com/lakphy/simple-code-inspector/issues)，加群咨询能够解决绝大部分问题。

@@ -1,13 +1,6 @@
 import { Server } from 'http';
-import type { Editor } from 'launch-ide';
 
 export type HotKey = 'ctrlKey' | 'altKey' | 'metaKey' | 'shiftKey';
-export type Behavior = {
-  locate?: boolean;
-  copy?: boolean | string;
-  target?: string;
-  defaultAction?: 'copy' | 'locate' | 'target' | 'all';
-};
 export type RecordInfo = {
   port: number;
   entry: string;
@@ -15,12 +8,10 @@ export type RecordInfo = {
   findPort?: Promise<number>;
   inputs?: Promise<string[]>; // 入口文件，适配 MPA 项目
   injectTo?: string[]; // 用户自定义的 injectTo 路径
-  envDir?: string; // 项目 env 目录
   root?: string; // 项目根目录
   server?: Server;
   previousPort?: number; // 随机端口，用于在 cache 情况下启动 node server
 };
-export type IDEOpenMethod = 'reuse' | 'new' | 'auto';
 export type ImportClientWay = 'file' | 'code';
 export type PathType = 'relative' | 'absolute';
 
@@ -64,14 +55,13 @@ export type CodeOptions = {
    */
   hideConsole?: boolean;
   /**
-   * @cn 打开功能开关的情况下，点击触发跳转编辑器时是否自动关闭开关
-   * @en When opening the function switch, whether automatically close the switch when triggering the jump editor function.
+   * @cn 打开功能开关的情况下，点击复制源码位置后是否自动关闭开关
+   * @en When opening the function switch, whether automatically close the switch after clicking to copy the source code location.
    */
   autoToggle?: boolean;
-  editor?: Editor;
   /**
-   * @cn 用于注入DOM 筛选和点击跳转vscode的相关代码的文件。必须为绝对路径且以 `.js/.ts/.mjs/.mts/.jsx/.tsx` 为结尾的文件
-   * @en The file to inject the relevant code for DOM filtering and click navigation in VSCode. Must be an absolute path and end with `.js/.ts/.mjs/.mts/.jsx/.tsx`.
+   * @cn 用于注入DOM 筛选和点击复制源码位置的相关代码的文件。必须为绝对路径且以 `.js/.ts/.mjs/.mts/.jsx/.tsx` 为结尾的文件
+   * @en The file to inject the relevant code for DOM filtering and click-to-copy source code location. Must be an absolute path and end with `.js/.ts/.mjs/.mts/.jsx/.tsx`.
    */
   injectTo?: string | string[];
   /**
@@ -95,20 +85,10 @@ export type CodeOptions = {
    */
   match?: RegExp;
   /**
-   * @cn 功能触发时的行为
-   * @en The behavior
+   * @cn 点击 DOM 时复制到剪贴板的文本格式，默认 "{file}:{line}:{column} <{tag}>"，其中 {xx} 为模版字符（支持 {file} / {line} / {column} / {tag}）
+   * @en The text format copied to clipboard when clicking the DOM. Default value is "{file}:{line}:{column} <{tag}>", where {xx} represents template characters (supports {file} / {line} / {column} / {tag}).
    */
-  behavior?: Behavior;
-  /**
-   * @cn 打开 IDE 窗口的方式: 不传或者 `auto` 为自动寻找窗口；`reuse` 将复用当前窗口；`new` 为打开新窗口
-   * @en The way to open the IDE window: Use `auto` or `undefined` to automatically find the window; Use `reuse` to reuse the current window; Use `new` to open a new window.
-   */
-  openIn?: IDEOpenMethod;
-  /**
-   * @cn 自定义跳转 IDE 时的打开路径，默认 "{file}:{line}:{column}"，其中 {xx} 为模版字符
-   * @en Customize the path when open the IDE. Default value is "{file}:{line}:{column}", where {xx} represents template characters.
-   */
-  pathFormat?: string | string[];
+  copyFormat?: string;
   /**
    * @zh 钩子函数
    * @en hooks
@@ -167,8 +147,8 @@ export type CodeOptions = {
    */
   printServer?: boolean;
   /**
-   * @zh 注入在 DOM 上的路径类型，默认值为 `absolute`，即绝对路径
-   * @en The type of path injected into the DOM, the default value is `absolute`, which means the path is relative to the project root directory
+   * @zh 注入在 DOM 上的路径类型，默认值为 `relative`，即相对于项目根目录的路径
+   * @en The type of path injected into the DOM. The default value is `relative`, which means relative to the project root directory
    */
   pathType?: PathType;
   /**
@@ -181,27 +161,8 @@ export type CodeOptions = {
    */
   skipSnippets?: ('console' | 'htmlScript')[];
   /**
-   * @zh 功能开关的快捷键，默认值为 `z`。同时按下 hotKeys 和 modeKey 可以打开功能开关设置
-   * @en The shortcut key of the feature switch, the default value is `z`. Pressing hotKeys and modeKey at the same time can open the feature switch settings
-   */
-  modeKey?: string;
-  /**
    * @zh 是否启用 server 功能。默认值为 `open`，即启用 server 功能。使用代码定位功能时必须启用 server 功能，线上构建只看 dom 路径时可以关闭 server 功能。
    * @en Whether to enable the server function. The default value is `open`, which means enabling the server function. The server function must be enabled when using the code location function, and it can be closed when building online only to view the dom path.
    */
   server?: 'open' | 'close';
-  /**
-   * @zh 启动 IDE 的方式。默认为 `exec`
-   * - exec: 使用可执行路径打开 editor
-   * - open: 使用 `open "{editor}://file/xxx/main.jsx:10:20"` 方式来打开。速度快且体验非常丝滑
-   *
-   * 仅支持 MacOS，如果 editor 在支持列表内，强烈建议设置 `launchType: 'open'`。editor 支持列表请参考：[which editor supports to be launched by open](https://github.com/zh-lx/launch-ide?tab=readme-ov-file#which-editor-supports-to-be-launched-by-open)。
-   *
-   * @en The method for launching the IDE. Default value is `exec`
-   * - exec: Use the executable path to open the editor
-   * - open: Use `open "{editor}://file/xxx/main.jsx:10:20"` to open. It is fast and provides a very smooth experience
-   *
-   * Only supports MacOS. If the editor is in the support list, it is strongly recommended to set `launchType: 'open'`. The support list can be found at: [which editor supports to be launched by open](https://github.com/zh-lx/launch-ide?tab=readme-ov-file#which-editor-supports-to-be-launched-by-open).
-   */
-  launchType?: 'exec' | 'open';
 };

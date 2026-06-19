@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   normalizePath: vi.fn((p: string) => p),
   getCodeWithWebComponent: vi.fn(async ({ code }: { code: string }) => `injected:${code}`),
   isExcludedFile: vi.fn(() => false),
@@ -12,7 +12,7 @@ import {
   normalizePath,
   getCodeWithWebComponent,
   isExcludedFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 describe('WebpackCodeInjectLoader', () => {
   let mockContext: any;

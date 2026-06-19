@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import * as esbuild from 'esbuild';
-import { codeInspectorPlugin } from 'code-inspector-plugin'
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin'
 
 const args = process.argv;
 console.log('Args', args);

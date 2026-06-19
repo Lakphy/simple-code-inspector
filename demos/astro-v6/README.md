@@ -1,6 +1,6 @@
 # Astro v6 Demo
 
-This demo verifies `code-inspector-plugin` in an Astro v6 project.
+This demo verifies `simple-code-inspector-plugin` in an Astro v6 project.
 
 ## Commands
 

@@ -25,7 +25,7 @@ const ForkTsCheckerWebpackPlugin =
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 const createEnvironmentHash = require('./webpack/persistentCache/createEnvironmentHash');
-const { CodeInspectorPlugin } = require('code-inspector-plugin');
+const { CodeInspectorPlugin } = require('simple-code-inspector-plugin');
 
 console.log(1111);
 
@@ -457,7 +457,7 @@ module.exports = function (webpackEnv) {
                 cacheCompression: false,
 
                 // Babel sourcemaps are needed for debugging into node_modules
-                // code.  Without the options below, debuggers like VSCode
+                // code.  Without the options below, debuggers
                 // show incorrect code and set breakpoints on the wrong lines.
                 sourceMaps: shouldUseSourceMap,
                 inputSourceMap: shouldUseSourceMap,

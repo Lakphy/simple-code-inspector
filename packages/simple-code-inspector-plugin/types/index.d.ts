@@ -1,4 +1,4 @@
-import { CodeOptions } from '@code-inspector/core';
+import { CodeOptions } from '@simple-code-inspector/core';
 export interface CodeInspectorPluginOptions extends CodeOptions {
     /**
      * @zh 设置为 true 时，仅当 .env.local 文件存在且其包含 CODE_INSPECTOR=true 时插件生效；默认值为 false

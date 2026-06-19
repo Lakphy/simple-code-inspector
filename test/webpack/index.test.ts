@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   CodeOptions: {},
   RecordInfo: {},
   fileURLToPath: vi.fn((url: string) => url.replace('file://', '')),
@@ -32,7 +32,7 @@ import {
   getProjectRecord,
   isDev,
   isNextjsProject,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 describe('WebpackCodeInspectorPlugin', () => {
   let mockCompiler: any;

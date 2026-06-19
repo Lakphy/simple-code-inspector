@@ -1,4 +1,4 @@
-import { codeInspectorPlugin } from 'code-inspector-plugin';
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

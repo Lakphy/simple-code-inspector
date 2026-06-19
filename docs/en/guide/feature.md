@@ -1,36 +1,22 @@
 # Feature All
 
-This article introduces all the features provided by `code-inspector-plugin`.
+This article introduces all the features provided by `simple-code-inspector-plugin`.
 
-## Feature Settings
+## Copy Source Code Location
 
-You can set the feature switches through the [behavior](../api/advance.html#behavior) parameter, the default parameters are as follows:
+When you click a DOM element, `simple-code-inspector-plugin` copies its source code location to your clipboard, ready to paste into your terminal or AI assistant. The copy is performed in the Node.js layer (local dev servers usually lack clipboard permission in the browser), so it works reliably during local development.
+
+You can customize the copied text via the [copyFormat](../api/advance.html#copyformat) parameter (default `{file}:{line}:{column} <{tag}>`):
 
 ```js
 codeInspectorPlugin({
-  behavior: {
-    locate: true,
-    copy: false,
-    target: '',
-  },
+  copyFormat: '{file}:{line}:{column} <{tag}>',
 }),
 ```
 
-### Code Location
-
-`behavior.locate` is used to set whether the code location feature is enabled, the default value is `true`. Clicking will automatically open the code editor and move the cursor to the code position of the element.
-
-### Copy Path
-
-`behavior.copy` is used to set whether to copy the path to the clipboard, the default value is `false`. For vibe coding developers, this function is very useful, you can directly copy the element information `{file}:{line}:{column}` to the clipboard.
-
-### Custom Target
-
-`behavior.target` is used to set the link to jump when clicking an element, you can use this parameter to jump to a specified link when clicking an element, such as the repository code address of github or gitlab.
-
 ### Custom Behavior
 
-`code-inspector-plugin` will trigger the following event when clicking the element mask layer, so you can customize the `code-inspector:trackCode` event in the code to control the corresponding behavior.
+`simple-code-inspector-plugin` will trigger the following event when clicking the element mask layer, so you can customize the `code-inspector:trackCode` event in the code to control the corresponding behavior.
 
 ```js
 window.addEventListener('code-inspector:trackCode', () => {
@@ -38,25 +24,19 @@ window.addEventListener('code-inspector:trackCode', () => {
 });
 ```
 
-## Switch Feature
-
-Press the combination key + Z (for example: `Option + Shift + Z`) to pop up the control window of the feature switch, you can quickly switch the function at runtime.
-
-![switch](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/switch.jpg)
-
 ## Quick Select Element
 
 There are two ways to select elements:
 
 ### Way One (Recommended)
 
-When you press the combination key on the page, the mouse moves on the page will show a mask layer and display related information, click once to automatically open the IDE and move the cursor to the code position of the element. (The default combination key for Mac is `Option + Shift`; the default combination key for Windows is `Alt + Shift`, the combination key will be output in the browser console.)
+When you press the combination key on the page, the mouse moves on the page will show a mask layer and display related information, click once to copy the source code location of the element to your clipboard. (The default combination key for Mac is `Option + Shift`; the default combination key for Windows is `Alt + Shift`, the combination key will be output in the browser console.)
 
 ![image](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/console-success.png)
 
 ### Way Two (Mobile Recommended)
 
-When the `showSwitch: true` parameter is configured in the plugin parameters, a `code inspection switch button` will be displayed on the page, clicking which can toggle the `code inspection mode` on/off. When the switch is colored, it means the `code inspection mode` is on <img src="https://github.com/zh-lx/code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="20" style="display: inline-block;" />; when the switch is黑白, it means the `code inspection mode` is off <img src="https://user-images.githubusercontent.com/73059627/230129864-e2813188-8d49-4a8e-a6bc-dda19c79b491.png" width="20" style="display: inline-block;" />.
+When the `showSwitch: true` parameter is configured in the plugin parameters, a `code inspection switch button` will be displayed on the page, clicking which can toggle the `code inspection mode` on/off. When the switch is colored, it means the `code inspection mode` is on <img src="https://github.com/lakphy/simple-code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="20" style="display: inline-block;" />; when the switch is黑白, it means the `code inspection mode` is off <img src="https://user-images.githubusercontent.com/73059627/230129864-e2813188-8d49-4a8e-a6bc-dda19c79b491.png" width="20" style="display: inline-block;" />.
 
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)
 
@@ -70,6 +50,6 @@ When the combination key is pressed, the parent/child elements can be switched b
 
 ## DOM Tree Select Element
 
-When the combination key is pressed, right-click on an element, the DOM tree selection element will be opened, and after selection, the code editor will be automatically opened and the cursor will be moved to the code position of the selected element.
+When the combination key is pressed, right-click on an element, the DOM tree selection element will be opened, and after selection, the source code location of the selected element will be copied to your clipboard.
 
 ![dom-tree](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/dom-tree.gif)

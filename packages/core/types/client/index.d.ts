@@ -41,13 +41,10 @@ export declare class CodeInspectorComponent extends LitElement {
     showSwitch: boolean;
     autoToggle: boolean;
     hideConsole: boolean;
-    locate: boolean;
-    copy: boolean | string;
-    target: string;
     targetNode: HTMLElement | null;
     ip: string;
+    serverEnabled: boolean;
     private wheelThrottling;
-    modeKey: string;
     position: {
         top: number;
         right: number;
@@ -97,22 +94,12 @@ export declare class CodeInspectorComponent extends LitElement {
     preUserSelect: string;
     sendType: 'xhr' | 'img';
     activeNode: ActiveNode;
-    showSettingsModal: boolean;
-    internalLocate: boolean;
-    internalCopy: boolean;
-    internalTarget: boolean;
     inspectorSwitchRef: HTMLDivElement;
     codeInspectorContainerRef: HTMLDivElement;
     elementInfoRef: HTMLDivElement;
     nodeTreeRef: HTMLDivElement;
     nodeTreeTitleRef: HTMLDivElement;
     nodeTreeTooltipRef: HTMLDivElement;
-    features: {
-        label: string;
-        description: string;
-        checked: () => boolean;
-        onChange: () => void;
-    }[];
     private eventListeners;
     isTracking: (e: any) => boolean | "";
     getDomPropertyValue: (target: HTMLElement, property: string) => number;
@@ -143,14 +130,11 @@ export declare class CodeInspectorComponent extends LitElement {
     removeLayerPanel: () => void;
     addGlobalCursorStyle: () => void;
     removeGlobalCursorStyle: () => void;
+    buildRequestUrl: () => string;
     sendXHR: () => void;
     sendImg: () => void;
-    buildTargetUrl: () => string;
     trackCode: () => void;
-    private handleModeShortcut;
     showNotification(message: string, type?: 'success' | 'error'): void;
-    copyToClipboard(text: string): void;
-    private fallbackCopy;
     handleDrag: (e: MouseEvent | TouchEvent) => void;
     getValidNodeList: (nodePath: HTMLElement[]) => HTMLElement[];
     isSamePositionNode: (node1: HTMLElement, node2: HTMLElement) => boolean;
@@ -172,11 +156,6 @@ export declare class CodeInspectorComponent extends LitElement {
     handleClickTreeNode: (node: TreeNode) => void;
     handleMouseEnterNode: (e: MouseEvent, node: TreeNode) => Promise<void>;
     handleMouseLeaveNode: () => void;
-    toggleSettingsModal: () => void;
-    closeSettingsModal: () => void;
-    toggleLocate: () => void;
-    toggleCopy: () => void;
-    toggleTarget: () => void;
     /**
      * Attach all event listeners
      */

@@ -1,24 +1,24 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 // Mock all the plugin modules
-vi.mock('@code-inspector/vite', () => ({
+vi.mock('@simple-code-inspector/vite', () => ({
   ViteCodeInspectorPlugin: vi.fn(() => ({ name: 'vite-plugin' })),
 }));
-vi.mock('@code-inspector/webpack', () => ({
+vi.mock('@simple-code-inspector/webpack', () => ({
   default: vi.fn().mockImplementation(() => ({ apply: vi.fn() })),
 }));
-vi.mock('@code-inspector/esbuild', () => ({
+vi.mock('@simple-code-inspector/esbuild', () => ({
   EsbuildCodeInspectorPlugin: vi.fn(() => ({ name: 'esbuild-plugin' })),
 }));
-vi.mock('@code-inspector/turbopack', () => ({
+vi.mock('@simple-code-inspector/turbopack', () => ({
   TurbopackCodeInspectorPlugin: vi.fn(() => ({ key: 'turbopack-config' })),
 }));
-vi.mock('@code-inspector/mako', () => ({
+vi.mock('@simple-code-inspector/mako', () => ({
   MakoCodeInspectorPlugin: vi.fn(() => ({ name: 'mako-plugin' })),
 }));
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   CodeOptions: {},
   fileURLToPath: vi.fn((url: string) => url.replace('file://', '')),
   getEnvVariable: vi.fn(() => 'false'),
@@ -45,13 +45,13 @@ vi.mock('path', async () => {
 import {
   CodeInspectorPlugin,
   codeInspectorPlugin,
-} from '@/code-inspector-plugin/src/index';
-import { ViteCodeInspectorPlugin } from '@code-inspector/vite';
-import WebpackCodeInspectorPlugin from '@code-inspector/webpack';
-import { EsbuildCodeInspectorPlugin } from '@code-inspector/esbuild';
-import { TurbopackCodeInspectorPlugin } from '@code-inspector/turbopack';
-import { MakoCodeInspectorPlugin } from '@code-inspector/mako';
-import { getEnvVariable, resetFileRecord } from '@code-inspector/core';
+} from '@/simple-code-inspector-plugin/src/index';
+import { ViteCodeInspectorPlugin } from '@simple-code-inspector/vite';
+import WebpackCodeInspectorPlugin from '@simple-code-inspector/webpack';
+import { EsbuildCodeInspectorPlugin } from '@simple-code-inspector/esbuild';
+import { TurbopackCodeInspectorPlugin } from '@simple-code-inspector/turbopack';
+import { MakoCodeInspectorPlugin } from '@simple-code-inspector/mako';
+import { getEnvVariable, resetFileRecord } from '@simple-code-inspector/core';
 
 describe('CodeInspectorPlugin', () => {
   let consoleSpy: any;

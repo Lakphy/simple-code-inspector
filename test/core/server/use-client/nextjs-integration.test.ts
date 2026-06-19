@@ -44,9 +44,6 @@ vi.mock('fs', async () => {
   };
 });
 
-vi.mock('launch-ide', () => ({
-  launchIDE: vi.fn(),
-}));
 vi.mock('@/core/src/server/server', async () => {
   const actual = await vi.importActual('@/core/src/server/server');
   return {

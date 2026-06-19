@@ -13,7 +13,7 @@
     "@astrojs/check": "^0.9.9",
     "@astrojs/mdx": "^6.0.2",
     "astro": "^6.4.4",
-    "code-inspector-plugin": "workspace:*",
+    "simple-code-inspector-plugin": "workspace:*",
     "typescript": "^5.9.3"
   }
 }

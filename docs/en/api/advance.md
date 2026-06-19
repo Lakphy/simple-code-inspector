@@ -2,32 +2,20 @@
 
 Below are configurations for some non-standard scenarios.
 
-## behavior <Badge type="tip" text="0.7.0+" vertical="middle" />
+## copyFormat
 
 - Optional
-- Type:
+- Type: `string`, default value is `{file}:{line}:{column} <{tag}>`
+- Description: The text format copied to the clipboard when clicking a DOM element. Supports the `{file}`, `{line}`, `{column}` and `{tag}` templates. For example, with the default format, clicking a `<div>` on line `12`, column `3` of `/src/App.tsx` copies `/src/App.tsx:12:3 <div>` to the clipboard.
+- Example:
   ```ts
-  type Behavior = {
-    /*
-     * Whether to enable clicking to jump to IDE code location (default is true)
-     */
-    locate?: boolean;
-    /*
-     * Whether to enable clicking to copy source code location info (default is true)
-     * Can also set a string and use {file}, {line}, {column} templates to specify the format
-     * Default value true is equivalent to the string format "{file}:{line}:{column}"
-     */
-    copy?: boolean | string;
-    /**
-     * Clicking elements will jump to the specified url.
-     * String type, can use {file}, {line}, {column} templates to replace code location information.
-     */
-    target?: string;
-  };
+  codeInspectorPlugin({
+    bundler: 'vite',
+    copyFormat: '{file}:{line}:{column}',
+  });
   ```
-- Description: In some scenarios, if you don't need to locate code when clicking elements and only need to copy the source code location information, you can set `locate: false` and `copy: true`. In this case, clicking elements will only copy the source code location information.
 
-In addition to the above behaviors, `code-inspector-plugin` will trigger a `code-inspector:trackCode` custom event when clicking elements. You can use this event to customize the desired functionality(This feature is supported in version `1.2.0+`). For example, if you want to log when clicking elements, you can implement it as follows:
+In addition to copying to the clipboard, `simple-code-inspector-plugin` will trigger a `code-inspector:trackCode` custom event when clicking elements. You can use this event to customize the desired functionality(This feature is supported in version `1.2.0+`). For example, if you want to log when clicking elements, you can implement it as follows:
 
 ```ts
 window.addEventListener('code-inspector:trackCode', () => {
@@ -53,7 +41,7 @@ window.addEventListener('code-inspector:trackCode', () => {
 
 - Optional
 - Type: `string | RegExp | (string | RegExp)[]`
-- Description: By default, `code-inspector-plugin` won't compile files in `node_modules`. In some monorepo projects, your local packages referenced by the main project might be linked through `node_modules`. In this case, you need to declare these packages via `include` to allow their code to participate in location.
+- Description: By default, `simple-code-inspector-plugin` won't compile files in `node_modules`. In some monorepo projects, your local packages referenced by the main project might be linked through `node_modules`. In this case, you need to declare these packages via `include` to allow their code to participate in location.
 - Example: Suppose you have the following directory structure:
   ```shell
   my-project
@@ -130,33 +118,19 @@ window.addEventListener('code-inspector:trackCode', () => {
     },
   });
   ```
-- Description: Set callback hooks for certain lifecycles of `code-inspector-plugin`. For example, if you want to track how many times your team uses the code location feature, you can implement it through this configuration.
+- Description: Set callback hooks for certain lifecycles of `simple-code-inspector-plugin`. For example, if you want to track how many times your team uses the code location feature, you can implement it through this configuration.
 
 ## match <Badge type="tip" text="0.5.0+" vertical="middle" />
 
 - Optional
 - Type: `RegExp`, default value is `/\.(vue|jsx|tsx|js|ts|mjs|mts)$/`
-- Description: `code-inspector-plugin` will only compile files that match the `match` regular expression for source code location. You can use this configuration to reduce unnecessary files from compilation and improve compilation performance.
+- Description: `simple-code-inspector-plugin` will only compile files that match the `match` regular expression for source code location. You can use this configuration to reduce unnecessary files from compilation and improve compilation performance.
 
 ## injectTo <Badge type="tip" text="0.5.0+" vertical="middle" />
 
 - Optional
 - Type: `string | string[]` (only supports `string[]` type in version `0.17.5` and above)
-- Description: Specifies the file for injecting client-side code related to DOM filtering and clicking to jump to vscode (must be an absolute path ending with `.js/.ts/.mjs/.mts/.jsx/.tsx`). By default, `code-inspector-plugin` will inject client code into the first file matching the `match` regular expression. In some custom SSR framework projects, the first injected file might only run on the server side, causing client-side logic to fail. In this case, you can specify a client file through this configuration to ensure client-side logic works.
-
-## openIn <Badge type="tip" text="0.8.0+" vertical="middle" />
-
-- Optional
-- Type: `'reuse' | 'new' | 'auto'`, default value is `'auto'`
-- Description: Specifies how to open IDE windows when using vscode or cursor as editor. `reuse` specifies reusing the current window; `new` specifies opening a new window; `auto` automatically chooses based on current IDE installation. It's recommended to configure your preference in IDE settings:
-
-  <img width="978" alt="image" src="https://github.com/user-attachments/assets/b98b819b-363c-4b3b-98bf-8c1606821942">
-
-## pathFormat <Badge type="tip" text="0.8.0+" vertical="middle" />
-
-- Optional
-- Type: `string | string[]`, default value is `{file}:{line}:{column}`
-- Description: Specifies the command format for opening files in IDE, mainly used with non-built-in IDEs. `{file}`, `{line}`, `{column}` will be dynamically replaced as templates. For example, if your code location is line `5` column `11` of `/root/my-project/index.ts`, and your IDE's command to open files is `yourIDE /root/my-project/index.ts --line 5 --column 11`, you should set this value to `["{file}", "--line", "{line}", "--column", "{column}"]`.
+- Description: Specifies the file for injecting client-side code related to DOM filtering and clicking to copy the source code location (must be an absolute path ending with `.js/.ts/.mjs/.mts/.jsx/.tsx`). By default, `simple-code-inspector-plugin` will inject client code into the first file matching the `match` regular expression. In some custom SSR framework projects, the first injected file might only run on the server side, causing client-side logic to fail. In this case, you can specify a client file through this configuration to ensure client-side logic works.
 
 ## hideDomPathAttr <Badge type="tip" text="0.12.0+" vertical="middle" />
 
@@ -168,7 +142,7 @@ window.addEventListener('code-inspector:trackCode', () => {
 
 - Optional
 - Type: `boolean`, default value is `false`
-- Description: Whether to hide the keyboard shortcut hints about `code-inspector-plugin` in browser console
+- Description: Whether to hide the keyboard shortcut hints about `simple-code-inspector-plugin` in browser console
 
 ## escapeTags <Badge type="tip" text="0.11.0+" vertical="middle" />
 
@@ -198,7 +172,7 @@ window.addEventListener('code-inspector:trackCode', () => {
 
 - Optional
 - Type: `number`, default value is `5678`
-- Description: Specifies the starting port for the server of `code-inspector-plugin` to find.
+- Description: Specifies the starting port for the server of `simple-code-inspector-plugin` to find.
 
 ## printServer <Badge type="tip" text="0.19.0+" vertical="middle" />
 
@@ -216,7 +190,7 @@ window.addEventListener('code-inspector:trackCode', () => {
 
 - Optional
 - Type: `boolean`, default value is `false`
-- Description: This option only works for `webpack/rspack` projects with `filesystem` cache type. It's mainly used to prevent communication failures between the page and IDE due to inconsistent port numbers. Defaults to `false`, meaning no cache is used on each cold start; when set to `true`, caching will be enabled (when setting to `true`, it's recommended to also set `port` to a fixed port number).
+- Description: This option only works for `webpack/rspack` projects with `filesystem` cache type. It's mainly used to prevent communication failures between the page and the node server due to inconsistent port numbers. Defaults to `false`, meaning no cache is used on each cold start; when set to `true`, caching will be enabled (when setting to `true`, it's recommended to also set `port` to a fixed port number).
 
 ## skipSnippets <Badge type="tip" text="1.2.3+" vertical="middle" />
 

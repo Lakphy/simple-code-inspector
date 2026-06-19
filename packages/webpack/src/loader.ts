@@ -5,7 +5,7 @@ import {
   isJsTypeFile,
   getMappingFilePath,
   isExcludedFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 const jsxParamList = ['isJsx', 'isTsx', 'lang.jsx', 'lang.tsx'];
 

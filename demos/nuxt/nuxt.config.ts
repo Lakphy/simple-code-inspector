@@ -1,4 +1,4 @@
-import { codeInspectorPlugin } from 'code-inspector-plugin'
+import { codeInspectorPlugin } from 'simple-code-inspector-plugin'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({

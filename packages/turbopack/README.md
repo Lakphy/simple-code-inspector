@@ -1,16 +1,16 @@
 <div align="center">
-<img src="https://github.com/zh-lx/code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="160px" style="margin-bottom: 12px;" />
+<img src="https://github.com/lakphy/simple-code-inspector/assets/73059627/842c3e88-dca7-4743-854c-d61093d3d34f" width="160px" style="margin-bottom: 12px;" />
 
 <p align="center">
-  <h2>code-inspector</h2>
+  <h2>simple-code-inspector</h2>
   <a href="https://inspector.fe-dev.cn">中文文档</a> | <a href="https://inspector.fe-dev.cn/en">Documentation</a>
 </p>
 
-[![NPM version](https://img.shields.io/npm/v/code-inspector-plugin.svg)](https://www.npmjs.com/package/code-inspector-plugin)
-[![GITHUB star](https://img.shields.io/github/stars/zh-lx/code-inspector?style=flat&label=%E2%AD%90%EF%B8%8F%20stars)](https://github.com/zh-lx/code-inspector)
-[![NPM Downloads](https://img.shields.io/npm/dm/code-inspector-plugin.svg)](https://npmcharts.netlify.app/compare/code-inspector-plugin?minimal=true)
+[![NPM version](https://img.shields.io/npm/v/simple-code-inspector-plugin.svg)](https://www.npmjs.com/package/simple-code-inspector-plugin)
+[![GITHUB star](https://img.shields.io/github/stars/lakphy/simple-code-inspector?style=flat&label=%E2%AD%90%EF%B8%8F%20stars)](https://github.com/lakphy/simple-code-inspector)
+[![NPM Downloads](https://img.shields.io/npm/dm/simple-code-inspector-plugin.svg)](https://npmcharts.netlify.app/compare/simple-code-inspector-plugin?minimal=true)
 [![MIT-license](https://img.shields.io/npm/l/code-inspector.svg)](https://opensource.org/licenses/MIT)
-[![GITHUB-language](https://img.shields.io/github/languages/top/zh-lx/code-inspector?logoColor=purple&color=purple)](https://github.com/zh-lx/code-inspector)
+[![GITHUB-language](https://img.shields.io/github/languages/top/lakphy/simple-code-inspector?logoColor=purple&color=purple)](https://github.com/lakphy/simple-code-inspector)
 
 </div>
 
@@ -18,7 +18,7 @@
 
 ## 📖 Introduction
 
-Click the element on the page, it can automatically open the code editor and position the cursor to the source code of the element.
+Click the element on the page, it copies the source code location of the element to your clipboard.
 
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)
 
@@ -34,7 +34,7 @@ Click the element on the page, it can automatically open the code editor and pos
 
 ## 🎨 Support
 
-The following are which compilers, web frameworks and editors we supported now:
+The following are which compilers and web frameworks we supported now:
 
 - The following bundlers are currently supported:<br />
   ✅ webpack<br />
@@ -52,21 +52,20 @@ The following are which compilers, web frameworks and editors we supported now:
   ✅ qwik<br />
   ✅ svelte<br />
   ✅ astro<br />
-- [Supported editor list](https://github.com/zh-lx/launch-ide?tab=readme-ov-file#-supported-editors) | [and Others](https://inspector.fe-dev.cn/en/guide/ide.html)
 
 ## 🚀 Install
 
 ```perl
-npm i code-inspector-plugin -D
+npm i simple-code-inspector-plugin -D
 # or
-yarn add code-inspector-plugin -D
+yarn add simple-code-inspector-plugin -D
 # or
-pnpm add code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin -D
 ```
 
 ## 🌈 Usage
 
-Please check here for more usage information: [code-inspector-plugin configuration](https://inspector.fe-dev.cn/en/guide/start.html#configuration)
+Please check here for more usage information: [simple-code-inspector-plugin configuration](https://inspector.fe-dev.cn/en/guide/start.html#configuration)
 
 - 1.Configuring Build Tools
 
@@ -75,7 +74,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
   ```js
   // webpack.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports = () => ({
     plugins: [
@@ -94,7 +93,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
   ```js
   // vite.config.js
   import { defineConfig } from 'vite';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     plugins: [
@@ -112,7 +111,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
   ```js
   // rspack.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports = {
     // other config...
@@ -132,7 +131,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
   ```js
   // rsbuild.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports = {
     // other config...
@@ -156,7 +155,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
   ```js
   // esbuild.config.js
   const esbuild = require('esbuild');
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   esbuild.build({
     // other configs...
@@ -173,7 +172,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
   ```js
   // farm.config.js
   import { defineConfig } from '@farmfe/core';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     vitePlugins: [
@@ -192,12 +191,12 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
   ```js
   // vue.config.js
-  const { codeInspectorPlugin } = require('code-inspector-plugin');
+  const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
   module.exports = {
     // ...other code
     chainWebpack: (config) => {
-      config.plugin('code-inspector-plugin').use(
+      config.plugin('simple-code-inspector-plugin').use(
         codeInspectorPlugin({
           bundler: 'webpack',
         })
@@ -215,7 +214,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
     ```js
     // nuxt.config.js
-    import { codeInspectorPlugin } from 'code-inspector-plugin';
+    import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
     // https://nuxt.com/docs/api/configuration/nuxt-config
     export default defineNuxtConfig({
@@ -229,7 +228,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
     ```js
     // nuxt.config.js
-    import { codeInspectorPlugin } from 'code-inspector-plugin';
+    import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
     export default {
       build: {
@@ -250,7 +249,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
     ```js
     // next.config.js
-    const { codeInspectorPlugin } = require('code-inspector-plugin');
+    const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
     const nextConfig = {
       webpack: (config, { dev, isServer }) => {
@@ -266,7 +265,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
     ```js
     import type { NextConfig } from 'next';
-    import { codeInspectorPlugin } from 'code-inspector-plugin';
+    import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
     const nextConfig: NextConfig = {
       experimental: {
@@ -286,7 +285,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
     ```js
     // next.config.js
     import type { NextConfig } from 'next';
-    import { codeInspectorPlugin } from 'code-inspector-plugin';
+    import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
     const nextConfig: NextConfig = {
       turbopack: {
@@ -309,11 +308,11 @@ Please check here for more usage information: [code-inspector-plugin configurati
     ```js
     // umi.config.js or umirc.js
     import { defineConfig } from '@umijs/max';
-    import { codeInspectorPlugin } from 'code-inspector-plugin';
+    import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
     export default defineConfig({
       chainWebpack(memo) {
-        memo.plugin('code-inspector-plugin').use(
+        memo.plugin('simple-code-inspector-plugin').use(
           codeInspectorPlugin({
             bundler: 'webpack',
           })
@@ -328,7 +327,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
     ```ts
     // .umirc.ts
     import { defineConfig } from 'umi';
-    import { codeInspectorPlugin } from 'code-inspector-plugin';
+    import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
     export default defineConfig({
       // other config...
@@ -350,7 +349,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
   ```js
   // astro.config.mjs
   import { defineConfig } from 'astro/config';
-  import { codeInspectorPlugin } from 'code-inspector-plugin';
+  import { codeInspectorPlugin } from 'simple-code-inspector-plugin';
 
   export default defineConfig({
     vite: {
@@ -365,7 +364,7 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
   Now you can enjoy using it!~
 
-  When pressing the combination keys on the page, moving the mouse over the page will display a mask layer on the DOM with relevant information. Clicking will automatically open the IDE and position the cursor to the corresponding code location. (The default combination keys for Mac are `Option + Shift`; for Windows, it's `Alt + Shift`, and the browser console will output related combination key prompts)
+  When pressing the combination keys on the page, moving the mouse over the page will display a mask layer on the DOM with relevant information. Clicking will copy the corresponding source code location (e.g. `/src/App.tsx:12:3 <div>`) to your clipboard. (The default combination keys for Mac are `Option + Shift`; for Windows, it's `Alt + Shift`, and the browser console will output related combination key prompts)
 
   <img src="https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/console-success.png" width="700px" />
 
@@ -373,11 +372,11 @@ Please check here for more usage information: [code-inspector-plugin configurati
 
 Special thanks to the contributors of this project:<br />
 
-<img src="https://contrib.rocks/image?repo=zh-lx/code-inspector" height="40" />
+<img src="https://contrib.rocks/image?repo=lakphy/simple-code-inspector" height="40" />
 
 ## 📧 Communication and Feedback
 
-For any usage issues, please leave a message below my [Twitter](https://twitter.com/zhulxing312147) post or [submit an issue](https://github.com/zh-lx/code-inspector/issues) on Github.
+For any usage issues, please leave a message below my [Twitter](https://twitter.com/zhulxing312147) post or [submit an issue](https://github.com/lakphy/simple-code-inspector/issues) on Github.
 
 For Chinese users, you can join the QQ group `769748484` or add the author's WeiXin account `zhoulx1688888` for consultation and feedback:
 

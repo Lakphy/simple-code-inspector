@@ -1,22 +1,22 @@
 {
-  "name": "code-inspector",
+  "name": "simple-code-inspector",
   "version": "0.0.1",
-  "repository": "git@github.com:zh-lx/code-inspector.git",
-  "author": "zh-lx <18366276315@163.com>",
+  "repository": "git@github.com:lakphy/simple-code-inspector.git",
+  "author": "lakphy",
   "license": "MIT",
   "homepage": "https://inspector.fe-dev.cn/en",
-  "description": "Click the dom on the page, it will open your IDE and position the cursor to the source code location of the dom.",
+  "description": "Click the dom on the page, it will copy the source code location of the dom to your clipboard.",
   "keywords": [
     "webpack",
     "vite",
     "plugin",
     "vue",
-    "vscode",
+    "clipboard",
     "inspector",
     "inspect"
   ],
   "bugs": {
-    "url": "https://github.com/zh-lx/code-inspector/issues"
+    "url": "https://github.com/lakphy/simple-code-inspector/issues"
   },
   "scripts": {
     "test": "vitest run --coverage",
@@ -39,7 +39,6 @@
     "fs-extra": "^10.0.0",
     "husky": "^8.0.3",
     "jsdom": "^25.0.1",
-    "launch-ide": "1.4.0",
     "rimraf": "^5.0.5",
     "vitest": "^2.1.4",
     "zip-a-folder": "^3.1.7"

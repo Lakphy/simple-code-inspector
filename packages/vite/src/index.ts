@@ -9,11 +9,11 @@ import {
   getMappingFilePath,
   isExcludedFile,
   isAstroToolbarFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 import chalk from 'chalk';
 import fs from 'fs';
 
-const PluginName = '@code-inspector/vite';
+const PluginName = '@simple-code-inspector/vite';
 
 const OrderedPlugins = [
   {
@@ -85,7 +85,7 @@ function printOrderWarning(plugins: { name: string }[] = []) {
       const info = [
         chalk.yellow('[WARNING]'),
         'You need to put',
-        chalk.green('code-inspector-plugin'),
+        chalk.green('simple-code-inspector-plugin'),
         'before',
         chalk.green(p.package),
         'in the vite config file.',
@@ -105,7 +105,6 @@ export function ViteCodeInspectorPlugin(options: Options) {
     port: 0,
     entry: '',
     output: options.output,
-    envDir: '',
   };
   return {
     name: PluginName,
@@ -114,7 +113,6 @@ export function ViteCodeInspectorPlugin(options: Options) {
       return !options.close && isDev(options.dev, command === 'serve');
     },
     configResolved(config) {
-      record.envDir = config.envDir || config.root;
       record.root = config.root;
     },
     async load(id: string): Promise<string | null> {

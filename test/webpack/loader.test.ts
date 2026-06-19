@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   transformCode: vi.fn((params: any) => `transformed:${params.content}`),
   normalizePath: vi.fn((p: string) => p),
   parseSFC: vi.fn((content: string) => ({
@@ -21,7 +21,7 @@ import {
   parseSFC,
   isJsTypeFile,
   isExcludedFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 describe('WebpackCodeInspectorLoader', () => {
   let mockContext: any;

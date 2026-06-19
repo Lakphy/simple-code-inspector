@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import fs from 'fs';
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   transformCode: vi.fn((params: any) => `transformed:${params.content}`),
   normalizePath: vi.fn((p: string) => p),
   CodeOptions: {},
@@ -31,7 +31,7 @@ import {
   isJsTypeFile,
   isExcludedFile,
   isAstroToolbarFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 describe('ViteCodeInspectorPlugin', () => {
   beforeEach(() => {
@@ -41,7 +41,7 @@ describe('ViteCodeInspectorPlugin', () => {
   describe('basic plugin structure', () => {
     it('should return plugin with correct name', () => {
       const plugin = ViteCodeInspectorPlugin({ bundler: 'vite', output: '/test' });
-      expect(plugin.name).toBe('@code-inspector/vite');
+      expect(plugin.name).toBe('@simple-code-inspector/vite');
     });
 
     it('should have enforce: pre by default', () => {
@@ -401,7 +401,7 @@ describe('ViteCodeInspectorPlugin', () => {
           },
           plugins: [
             { name: 'vite:react-babel' },
-            { name: '@code-inspector/vite' },
+            { name: '@simple-code-inspector/vite' },
           ],
         },
       };
@@ -425,7 +425,7 @@ describe('ViteCodeInspectorPlugin', () => {
           },
           plugins: [
             { name: 'vite:react-babel' },
-            { name: '@code-inspector/vite' },
+            { name: '@simple-code-inspector/vite' },
           ],
         },
       };
@@ -447,7 +447,7 @@ describe('ViteCodeInspectorPlugin', () => {
             info: originalInfo,
           },
           plugins: [
-            { name: '@code-inspector/vite' },
+            { name: '@simple-code-inspector/vite' },
             { name: 'vite:react-babel' },
           ],
         },

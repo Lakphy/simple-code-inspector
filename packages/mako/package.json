@@ -1,14 +1,14 @@
 {
-  "name": "@code-inspector/mako",
+  "name": "@simple-code-inspector/mako",
   "version": "1.6.1",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "typings": "./types/index.d.ts",
-  "repository": "git@github.com:zh-lx/code-inspector.git",
-  "author": "zh-lx <18366276315@163.com>",
+  "repository": "git@github.com:lakphy/simple-code-inspector.git",
+  "author": "lakphy",
   "license": "MIT",
   "homepage": "https://inspector.fe-dev.cn/en",
-  "description": "Click the dom on the page, it will open your IDE and position the cursor to the source code location of the dom.",
+  "description": "Click the dom on the page, it will copy the source code location of the dom to your clipboard.",
   "files": [
     "dist",
     "types"
@@ -29,15 +29,15 @@
     "turbopack",
     "nextjs",
     "plugin",
-    "vscode",
+    "clipboard",
     "inspector",
     "inspect"
   ],
   "bugs": {
-    "url": "https://github.com/zh-lx/code-inspector/issues"
+    "url": "https://github.com/lakphy/simple-code-inspector/issues"
   },
   "dependencies": {
-    "@code-inspector/core": "workspace:*"
+    "@simple-code-inspector/core": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^16.0.1",

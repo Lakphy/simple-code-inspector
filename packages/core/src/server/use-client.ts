@@ -161,29 +161,24 @@ export function getWebComponentCode(options: CodeOptions, port: number) {
     showSwitch = false,
     hideConsole = false,
     autoToggle = true,
-    behavior = {},
     ip = false,
     bundler,
-    modeKey = 'z',
+    server = 'open',
   } = options || ({} as CodeOptions);
-  const { locate = true, copy = false, target = '' } = behavior;
   return `
 ;(function (){
   if (typeof window !== 'undefined') {
     if (!document.documentElement.querySelector('code-inspector-component')) {
       ${bundler === 'mako' ? iifeClientJsCode : jsClientCode};
-      
+
       var inspector = document.createElement('code-inspector-component');
       inspector.port = ${port};
       inspector.hotKeys = '${(hotKeys ? hotKeys : [])?.join(',')}';
       inspector.showSwitch = !!${showSwitch};
       inspector.autoToggle = !!${autoToggle};
       inspector.hideConsole = !!${hideConsole};
-      inspector.locate = !!${locate};
-      inspector.copy = ${typeof copy === 'string' ? `'${copy}'` : !!copy};
-      inspector.target = '${target}';
       inspector.ip = '${getIP(ip)}';
-      inspector.modeKey = '${modeKey.toLowerCase() || 'z'}';
+      inspector.serverEnabled = !!${server !== 'close'};
       document.documentElement.append(inspector);
     }
   }
@@ -294,7 +289,7 @@ function recordInjectTo(record: RecordInfo, options: CodeOptions) {
         const info = [
           chalk.cyan('injectTo'),
           chalk.red('in'),
-          chalk.cyan('code-inspector-plugin'),
+          chalk.cyan('simple-code-inspector-plugin'),
           chalk.red('must be an absolute file path!'),
         ];
         console.log(info.join(' '));
@@ -303,7 +298,7 @@ function recordInjectTo(record: RecordInfo, options: CodeOptions) {
           chalk.red('The ext of '),
           chalk.cyan('injectTo'),
           chalk.red('in'),
-          chalk.cyan('code-inspector-plugin'),
+          chalk.cyan('simple-code-inspector-plugin'),
           chalk.red('must in .js/.ts/.mjs/.mts/.jsx/.tsx'),
         ];
         console.log(info.join(' '));

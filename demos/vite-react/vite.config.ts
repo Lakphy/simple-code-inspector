@@ -2,7 +2,7 @@ import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
-import { CodeInspectorPlugin } from 'code-inspector-plugin';
+import { CodeInspectorPlugin } from 'simple-code-inspector-plugin';
 
 // https://vitejs.dev/config/
 /** @type {import('vite').UserConfig} */
@@ -16,7 +16,7 @@ export default defineConfig({
     }
   },
   plugins: [
-    // code-inspector-plugin need to be used before @vitejs/plugin-react
+    // simple-code-inspector-plugin need to be used before @vitejs/plugin-react
     CodeInspectorPlugin({
       bundler: 'vite'
     }),

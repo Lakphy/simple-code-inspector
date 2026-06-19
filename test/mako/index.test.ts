@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // Mock core module before imports
-vi.mock('@code-inspector/core', () => ({
+vi.mock('@simple-code-inspector/core', () => ({
   CodeOptions: {},
   RecordInfo: {},
   getCodeWithWebComponent: vi.fn(async ({ code }: { code: string }) => `injected:${code}`),
@@ -20,7 +20,7 @@ import {
   isDev,
   isJsTypeFile,
   isExcludedFile,
-} from '@code-inspector/core';
+} from '@simple-code-inspector/core';
 
 describe('MakoCodeInspectorPlugin', () => {
   beforeEach(() => {
@@ -31,7 +31,7 @@ describe('MakoCodeInspectorPlugin', () => {
     it('should return plugin with correct name', () => {
       vi.mocked(isDev).mockReturnValueOnce(true);
       const plugin = MakoCodeInspectorPlugin({ bundler: 'mako', output: '/test' });
-      expect(plugin.name).toBe('@code-inspector/mako');
+      expect(plugin.name).toBe('@simple-code-inspector/mako');
     });
 
     it('should return plugin with only name when close is true', () => {
@@ -40,13 +40,13 @@ describe('MakoCodeInspectorPlugin', () => {
         output: '/test',
         close: true,
       });
-      expect(plugin).toEqual({ name: '@code-inspector/mako' });
+      expect(plugin).toEqual({ name: '@simple-code-inspector/mako' });
     });
 
     it('should return plugin with only name when not in dev mode', () => {
       vi.mocked(isDev).mockReturnValueOnce(false);
       const plugin = MakoCodeInspectorPlugin({ bundler: 'mako', output: '/test' });
-      expect(plugin).toEqual({ name: '@code-inspector/mako' });
+      expect(plugin).toEqual({ name: '@simple-code-inspector/mako' });
     });
 
     it('should have enforce: pre by default', () => {

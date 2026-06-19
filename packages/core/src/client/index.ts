@@ -2,7 +2,6 @@ import { LitElement, TemplateResult, css, html } from 'lit';
 import { property, query, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 import { PathName, DefaultPort } from '../shared';
-import { formatOpenPath } from 'launch-ide';
 
 const styleId = '__code-inspector-unique-id';
 
@@ -86,19 +85,13 @@ export class CodeInspectorComponent extends LitElement {
   @property()
   hideConsole: boolean = false;
   @property()
-  locate: boolean = true;
-  @property()
-  copy: boolean | string = false;
-  @property()
-  target: string = '';
-  @property()
   targetNode: HTMLElement | null = null;
   @property()
   ip: string = 'localhost';
+  @property()
+  serverEnabled: boolean = true;
 
   private wheelThrottling: boolean = false;
-  @property()
-  modeKey: string = 'z';
 
   @state()
   position = {
@@ -159,14 +152,6 @@ export class CodeInspectorComponent extends LitElement {
   sendType: 'xhr' | 'img' = 'xhr';
   @state()
   activeNode: ActiveNode = {};
-  @state()
-  showSettingsModal = false; // 是否显示设置弹窗
-  @state()
-  internalLocate = true; // 内部 locate 状态
-  @state()
-  internalCopy: boolean = false; // 内部 copy 状态
-  @state()
-  internalTarget = false; // 内部 target 状态
 
   @query('#inspector-switch')
   inspectorSwitchRef!: HTMLDivElement;
@@ -182,27 +167,6 @@ export class CodeInspectorComponent extends LitElement {
   nodeTreeTitleRef!: HTMLDivElement;
   @query('#node-tree-tooltip')
   nodeTreeTooltipRef!: HTMLDivElement;
-
-  features = [
-    {
-      label: 'Locate Code',
-      description: 'Open the editor and locate code',
-      checked: () => !!this.internalLocate,
-      onChange: () => this.toggleLocate(),
-    },
-    {
-      label: 'Copy Path',
-      description: 'Copy the code path to clipboard',
-      checked: () => !!this.internalCopy,
-      onChange: () => this.toggleCopy(),
-    },
-    {
-      label: 'Open Target',
-      description: 'Open the target url',
-      checked: () => !!this.internalTarget,
-      onChange: () => this.toggleTarget(),
-    },
-  ];
 
   // Event listeners configuration for centralized management
   private eventListeners: Array<{
@@ -535,65 +499,50 @@ export class CodeInspectorComponent extends LitElement {
     }
   };
 
-  sendXHR = () => {
+  // 拼接发送给 node server 的请求地址（node 层据此将源码位置复制到剪贴板）
+  buildRequestUrl = () => {
     const file = encodeURIComponent(this.element.path);
-    const url = `http://${this.ip}:${this.port}/?file=${file}&line=${this.element.line}&column=${this.element.column}`;
+    const name = encodeURIComponent(this.element.name);
+    return `http://${this.ip}:${this.port}/?file=${file}&line=${this.element.line}&column=${this.element.column}&name=${name}`;
+  };
+
+  sendXHR = () => {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.send();
+    xhr.open('GET', this.buildRequestUrl(), true);
+    xhr.addEventListener('load', () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        this.showNotification('✓ Copied code location');
+      } else {
+        this.showNotification(
+          xhr.responseText || 'Failed to copy code location',
+          'error'
+        );
+      }
+    });
     xhr.addEventListener('error', () => {
       this.sendType = 'img';
       this.sendImg();
     });
+    xhr.send();
   };
 
   // 通过img方式发送请求，防止类似企业微信侧边栏等内置浏览器拦截逻辑
   sendImg = () => {
-    const file = encodeURIComponent(this.element.path);
-    const url = `http://${this.ip}:${this.port}/?file=${file}&line=${this.element.line}&column=${this.element.column}`;
     const img = document.createElement('img');
-    img.src = url;
+    img.src = this.buildRequestUrl();
+    this.showNotification('Copy request sent');
   };
 
-  buildTargetUrl = () => {
-    let targetUrl = this.target;
-
-    const { path, line, column } = this.element;
-    const replacementMap: Record<string, string | number> = {
-      '{file}': path,
-      '{line}': line,
-      '{column}': column,
-    };
-    for (let replacement in replacementMap) {
-      targetUrl = targetUrl.replace(
-        new RegExp(replacement, 'g'),
-        String(replacementMap[replacement])
-      );
-    }
-
-    return targetUrl;
-  };
-
-  // 触发功能的处理
+  // 触发功能的处理：通知 node server 将源码位置复制到剪贴板
   trackCode = () => {
-    if (this.internalLocate) {
+    if (this.serverEnabled) {
       if (this.sendType === 'xhr') {
         this.sendXHR();
       } else {
         this.sendImg();
       }
-    }
-    if (this.internalCopy) {
-      const path = formatOpenPath(
-        this.element.path,
-        String(this.element.line),
-        String(this.element.column),
-        this.copy
-      );
-      this.copyToClipboard(path[0]);
-    }
-    if (this.internalTarget) {
-      window.open(this.buildTargetUrl(), '_blank');
+    } else {
+      this.showNotification('Clipboard server is disabled', 'error');
     }
     // 触发自定义事件
     window.dispatchEvent(
@@ -601,20 +550,6 @@ export class CodeInspectorComponent extends LitElement {
         detail: this.element,
       })
     );
-  };
-
-  private handleModeShortcut = (e: KeyboardEvent) => {
-    if (!this.isTracking(e)) {
-      return;
-    }
-    const isModeKeyDown =
-      e.code?.toLowerCase() === `key${this.modeKey}` ||
-      e.key?.toLowerCase() === this.modeKey;
-    if (isModeKeyDown) {
-      this.toggleSettingsModal();
-      e.preventDefault();
-      e.stopPropagation();
-    }
   };
 
   showNotification(message: string, type: 'success' | 'error' = 'success') {
@@ -635,45 +570,6 @@ export class CodeInspectorComponent extends LitElement {
         document.body.removeChild(notification);
       }, 300);
     }, 2000);
-  }
-
-  copyToClipboard(text: string) {
-    try {
-      if (typeof navigator?.clipboard?.writeText === 'function') {
-        navigator.clipboard
-          .writeText(text)
-          .then(() => {
-            this.showNotification('✓ Copied to clipboard');
-          })
-          .catch(() => {
-            this.fallbackCopy(text);
-          });
-      } else {
-        this.fallbackCopy(text);
-      }
-    } catch (error) {
-      this.fallbackCopy(text);
-    }
-  }
-
-  private fallbackCopy(text: string) {
-    try {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.select();
-      const success = document.execCommand('copy');
-      document.body.removeChild(textarea);
-      if (success) {
-        this.showNotification('✓ Copied to clipboard');
-      } else {
-        this.showNotification('✗ Copy failed', 'error');
-      }
-    } catch (error) {
-      this.showNotification('✗ Copy failed', 'error');
-    }
   }
 
   // 移动按钮
@@ -790,7 +686,7 @@ export class CodeInspectorComponent extends LitElement {
     }, 200);
   };
 
-  // 鼠标点击唤醒遮罩层
+  // 鼠标点击：复制源码位置
   handleMouseClick = (e: MouseEvent | TouchEvent) => {
     if (this.isTracking(e) || this.open) {
       if (this.show) {
@@ -873,7 +769,7 @@ export class CodeInspectorComponent extends LitElement {
         e.stopPropagation();
         // 阻止默认事件
         e.preventDefault();
-        // 唤醒 vscode
+        // 复制源码位置到剪贴板
         this.trackCode();
         // 清除遮罩层
         this.removeCover();
@@ -902,20 +798,8 @@ export class CodeInspectorComponent extends LitElement {
     const hotKeys = this.hotKeys
       .split(',')
       .map((item) => rep + hotKeyMap[item.trim() as keyof typeof hotKeyMap]);
-    const switchKeys = [...hotKeys, rep + this.modeKey.toUpperCase()];
-    const activeFeatures = this.features
-      .filter((feature) => feature.checked())
-      .map((feature) => `${rep}${feature.label}`);
-    const currentFeature =
-      activeFeatures.length > 0
-        ? activeFeatures.join(`${rep}、`)
-        : `${rep}None`;
 
-    const colorCount =
-      hotKeys.length * 2 +
-      switchKeys.length * 2 +
-      currentFeature.match(/%c/g)!.length +
-      1;
+    const colorCount = hotKeys.length * 2 + 1;
     const colors = Array(colorCount)
       .fill('')
       .map((_, index) => {
@@ -927,14 +811,10 @@ export class CodeInspectorComponent extends LitElement {
       });
 
     const content = [
-      `${rep}[code-inspector-plugin]`,
+      `${rep}[simple-code-inspector-plugin]`,
       `${rep}• Press and hold ${hotKeys.join(
         ` ${rep}+ `
-      )} ${rep}to use the feature.`,
-      `• Press ${switchKeys.join(
-        ` ${rep}+ `
-      )} ${rep}to see and change feature.`,
-      `• Current Feature: ${currentFeature}`,
+      )} ${rep}and click the DOM to copy its source code location.`,
     ].join('\n');
     console.log(
       content,
@@ -1036,31 +916,6 @@ export class CodeInspectorComponent extends LitElement {
     this.removeCover(true);
   };
 
-  // 切换设置弹窗显示
-  toggleSettingsModal = () => {
-    this.showSettingsModal = !this.showSettingsModal;
-  };
-
-  // 关闭设置弹窗
-  closeSettingsModal = () => {
-    this.showSettingsModal = false;
-  };
-
-  // 切换 locate 功能
-  toggleLocate = () => {
-    this.internalLocate = !this.internalLocate;
-  };
-
-  // 切换 copy 功能
-  toggleCopy = () => {
-    this.internalCopy = !this.internalCopy;
-  };
-
-  // 切换 target 功能
-  toggleTarget = () => {
-    this.internalTarget = !this.internalTarget;
-  };
-
   /**
    * Attach all event listeners
    */
@@ -1080,11 +935,6 @@ export class CodeInspectorComponent extends LitElement {
   }
 
   protected firstUpdated(): void {
-    // 初始化内部状态
-    this.internalLocate = this.locate;
-    this.internalCopy = !!this.copy;
-    this.internalTarget = !!this.target;
-
     // Initialize event listeners configuration
     this.eventListeners = [
       { event: 'mousemove', handler: this.handleMouseMove as unknown as EventListener, options: true },
@@ -1094,7 +944,6 @@ export class CodeInspectorComponent extends LitElement {
       { event: 'click', handler: this.handleMouseClick as EventListener, options: true },
       { event: 'pointerdown', handler: this.handlePointerDown as EventListener, options: true },
       { event: 'keyup', handler: this.handleKeyUp as EventListener, options: true },
-      { event: 'keydown', handler: this.handleModeShortcut as EventListener, options: true },
       { event: 'mouseleave', handler: this.removeCover as EventListener, options: true },
       { event: 'mouseup', handler: this.handleMouseUp as EventListener, options: true },
       { event: 'touchend', handler: this.handleMouseUp as EventListener, options: true },
@@ -1354,55 +1203,6 @@ export class CodeInspectorComponent extends LitElement {
         </div>
       </div>
 
-      <!-- 设置弹窗 -->
-      ${this.showSettingsModal
-        ? html`
-            <div
-              class="settings-modal-overlay"
-              @click="${this.closeSettingsModal}"
-            >
-              <div
-                class="settings-modal"
-                @click="${(e: MouseEvent) => e.stopPropagation()}"
-              >
-                <div class="settings-modal-header">
-                  <h3 class="settings-modal-title">Mode Settings</h3>
-                  <button
-                    class="settings-modal-close"
-                    @click="${this.closeSettingsModal}"
-                  >
-                    ×
-                  </button>
-                </div>
-                <div class="settings-modal-content">
-                  ${this.features.map(
-                    (feature) => html`
-                      <div class="settings-item">
-                        <label class="settings-label">
-                          <span class="settings-label-text"
-                            >${feature.label}</span
-                          >
-                          <span class="settings-label-desc"
-                            >${feature.description}</span
-                          >
-                        </label>
-                        <label class="settings-switch">
-                          <input
-                            type="checkbox"
-                            .checked="${feature.checked()}"
-                            @change="${feature.onChange}"
-                          />
-                          <span class="settings-slider"></span>
-                        </label>
-                      </div>
-                    `
-                  )}
-                </div>
-              </div>
-            </div>
-          `
-        : ''}
-
       <div
         id="node-tree-tooltip"
         class="${this.activeNode.class}"
@@ -1588,177 +1388,6 @@ export class CodeInspectorComponent extends LitElement {
       cursor: pointer;
     }
 
-    /* 设置弹窗样式 */
-    .settings-modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 99999999999999999;
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    .settings-modal {
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      width: 90%;
-      max-width: 480px;
-      max-height: 90vh;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      animation: slideUp 0.3s ease-out;
-    }
-
-    .settings-modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px;
-      border-bottom: 1px solid #eee;
-    }
-
-    .settings-modal-title {
-      margin: 0;
-      font-size: 18px;
-      font-weight: 600;
-      color: #333;
-    }
-
-    .settings-modal-close {
-      background: none;
-      border: none;
-      font-size: 28px;
-      color: #999;
-      cursor: pointer;
-      padding: 0;
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      transition: all 0.2s;
-    }
-
-    .settings-modal-close:hover {
-      background: #f5f5f5;
-      color: #333;
-    }
-
-    .settings-modal-content {
-      padding: 16px 24px;
-      overflow-y: auto;
-      flex: 1;
-    }
-
-    .settings-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 0;
-      border-bottom: 1px solid #f5f5f5;
-    }
-
-    .settings-item:last-child {
-      border-bottom: none;
-    }
-
-    .settings-label {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      margin-right: 16px;
-      cursor: pointer;
-    }
-
-    .settings-label-text {
-      font-size: 15px;
-      font-weight: 500;
-      color: #333;
-      margin-bottom: 4px;
-    }
-
-    .settings-label-desc {
-      font-size: 13px;
-      color: #999;
-    }
-
-    .settings-switch {
-      position: relative;
-      display: inline-block;
-      width: 44px;
-      height: 24px;
-      flex-shrink: 0;
-    }
-
-    .settings-switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .settings-slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: 0.3s;
-      border-radius: 24px;
-    }
-
-    .settings-slider:before {
-      position: absolute;
-      content: '';
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: 0.3s;
-      border-radius: 50%;
-    }
-
-    .settings-switch input:checked + .settings-slider {
-      background-color: #006aff;
-    }
-
-    .settings-switch input:checked + .settings-slider:before {
-      transform: translateX(20px);
-    }
-
-    .settings-switch input:focus + .settings-slider {
-      box-shadow: 0 0 1px #006aff;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes slideUp {
-      from {
-        transform: translateY(20px);
-        opacity: 0;
-      }
-      to {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
   `;
 }
 

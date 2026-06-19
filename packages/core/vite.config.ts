@@ -24,7 +24,6 @@ export default defineConfig({
         'chalk',
         'url',
         'module',
-        'launch-ide',
         'portfinder',
         'child_process',
         '@vue/compiler-dom',

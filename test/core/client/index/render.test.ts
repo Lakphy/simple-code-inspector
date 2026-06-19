@@ -225,77 +225,16 @@ describe('render', () => {
     });
   });
 
-  describe('Settings Modal', () => {
-    it('should not render settings modal when showSettingsModal is false', async () => {
-      component.showSettingsModal = false;
+  describe('Settings Modal (removed)', () => {
+    it('should never render a settings modal', async () => {
       await component.updateComplete;
 
-      const modal = component.shadowRoot?.querySelector('.settings-modal-overlay');
+      const overlay = component.shadowRoot?.querySelector(
+        '.settings-modal-overlay'
+      );
+      const modal = component.shadowRoot?.querySelector('.settings-modal');
+      expect(overlay).toBeNull();
       expect(modal).toBeNull();
-    });
-
-    it('should render settings modal when showSettingsModal is true', async () => {
-      component.showSettingsModal = true;
-      await component.updateComplete;
-
-      const modal = component.shadowRoot?.querySelector('.settings-modal-overlay');
-      expect(modal).toBeTruthy();
-    });
-
-    it('should render feature toggles in settings modal', async () => {
-      component.showSettingsModal = true;
-      await component.updateComplete;
-
-      const switches = component.shadowRoot?.querySelectorAll('.settings-switch');
-      expect(switches?.length).toBe(3);
-    });
-
-    it('should close modal when clicking overlay', async () => {
-      component.showSettingsModal = true;
-      await component.updateComplete;
-
-      const overlay = component.shadowRoot?.querySelector('.settings-modal-overlay') as HTMLElement;
-      overlay?.click();
-      await component.updateComplete;
-
-      expect(component.showSettingsModal).toBe(false);
-    });
-
-    it('should close modal when clicking close button', async () => {
-      component.showSettingsModal = true;
-      await component.updateComplete;
-
-      const closeBtn = component.shadowRoot?.querySelector('.settings-modal-close') as HTMLElement;
-      closeBtn?.click();
-      await component.updateComplete;
-
-      expect(component.showSettingsModal).toBe(false);
-    });
-
-    it('should not close modal when clicking modal content', async () => {
-      component.showSettingsModal = true;
-      await component.updateComplete;
-
-      const modal = component.shadowRoot?.querySelector('.settings-modal') as HTMLElement;
-      modal?.click();
-      await component.updateComplete;
-
-      expect(component.showSettingsModal).toBe(true);
-    });
-    it('should toggle feature when checkbox is changed', async () => {
-      component.showSettingsModal = true;
-      component.internalLocate = true;
-      await component.updateComplete;
-
-      const checkbox = component.shadowRoot?.querySelector('.settings-switch input') as HTMLInputElement;
-
-      // Trigger change event
-      const changeEvent = new Event('change', { bubbles: true });
-      checkbox?.dispatchEvent(changeEvent);
-      await component.updateComplete;
-
-      // The first feature is Locate, so internalLocate should toggle
-      expect(component.internalLocate).toBe(false);
     });
   });
 

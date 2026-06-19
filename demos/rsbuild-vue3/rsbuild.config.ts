@@ -1,6 +1,6 @@
 import { defineConfig } from '@rsbuild/core';
 import { pluginVue } from '@rsbuild/plugin-vue';
-const { codeInspectorPlugin } = require('code-inspector-plugin');
+const { codeInspectorPlugin } = require('simple-code-inspector-plugin');
 
 export default defineConfig({
   plugins: [
