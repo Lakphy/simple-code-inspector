@@ -6,6 +6,8 @@
 
 点击 DOM 元素时，`simple-code-inspector-plugin` 会将其源码位置复制到系统剪贴板，方便粘贴到终端或 AI 助手中。复制操作在 Node.js 层完成（本地 dev server 在浏览器中通常没有剪贴板权限），因此在本地开发时能稳定生效。
 
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。与上游不同，本项目会复制源码位置到系统剪贴板，而不是直接唤起 IDE。
+
 你可以通过 [copyFormat](../api/advance.html#copyformat) 参数自定义复制的文本格式（默认 `{file}:{line}:{column} <{tag}>`）：
 
 ```js

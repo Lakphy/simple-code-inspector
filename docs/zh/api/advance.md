@@ -1,5 +1,7 @@
 # 进阶配置
 
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。本项目将原先直接唤起 IDE 的行为改为复制源码位置到系统剪贴板。
+
 以下是一些非常规场景下的配置。
 
 ## copyFormat

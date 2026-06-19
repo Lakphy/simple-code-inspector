@@ -18,6 +18,12 @@ hero:
     - theme: alt
       text: 加入用户群
       link: /more/feedback
+    - theme: alt
+      text: 原项目
+      link: https://github.com/zh-lx/code-inspector
+    - theme: alt
+      text: 原文说明
+      link: https://github.com/zh-lx/code-inspector#readme
 
 features:
   - icon: 🚀
@@ -29,4 +35,7 @@ features:
   - icon: 🎨
     title: 适配性强
     details: 支持在 webpack/vite/rspack/nextjs/nuxt/umijs 中使用，支持 vue/react/preact/solid/qwik/svelte/astro 等多个框架
+  - icon: 📌
+    title: Fork 自 Code Inspector
+    details: Simple Code Inspector 基于 Code Inspector fork 而来，保留 DOM 到源码位置的定位能力，但改为复制源码位置到剪贴板，而不是直接唤起 IDE。
 ---

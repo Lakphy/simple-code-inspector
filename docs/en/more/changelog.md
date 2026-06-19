@@ -1,5 +1,7 @@
 # Changelog
 
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). Historical entries inherited from upstream Code Inspector may mention older direct-IDE behavior; this fork's current behavior is clipboard-based source-location copying.
+
 ## 1.6.1
 
 - 【fix】Optimize inspector tooltip position logic to prevent covering target elements [#541](https://github.com/lakphy/simple-code-inspector/pull/541)

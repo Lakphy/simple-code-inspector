@@ -2,6 +2,8 @@
 
 `simple-code-inspector-plugin` 会将点击元素的源码位置复制到系统剪贴板。
 
+剪贴板行为是本项目与上游 [Code Inspector](https://github.com/zh-lx/code-inspector) 的核心区别。Simple Code Inspector 基于该项目 fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。本项目不再直接唤起 IDE，而是将源码位置写入系统剪贴板。
+
 ## 工作原理
 
 1. 编译阶段会在你的 DOM 元素上注入 `data-insp-path` 属性（`file:line:column:tag`）。

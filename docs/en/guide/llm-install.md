@@ -2,6 +2,8 @@
 
 This page is written for AI coding agents that need to add `simple-code-inspector-plugin` to an existing project.
 
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). When installing this fork, configure it as a clipboard-based source-location tool, not as a direct IDE launcher.
+
 ## Canonical facts
 
 - Package name: `simple-code-inspector-plugin`

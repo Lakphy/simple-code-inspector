@@ -1,5 +1,7 @@
 # 更新日志
 
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。从上游继承的历史更新记录中可能仍描述旧版直接唤起 IDE 的行为；本 fork 当前行为是复制源码位置到剪贴板。
+
 ## 1.6.1
 
 - 【fix】优化 inspector tooltip 位置逻辑，防止遮挡目标元素 [#541](https://github.com/lakphy/simple-code-inspector/pull/541)

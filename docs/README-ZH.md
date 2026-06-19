@@ -20,6 +20,10 @@
 
 点击页面上的元素，即可将元素对应的源码位置复制到剪贴板，方便粘贴到终端或 AI 助手中。
 
+## Fork 说明
+
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。本项目保留 DOM 到源码位置的定位能力，但将原先直接唤起 IDE 的行为改为复制源码位置到系统剪贴板。
+
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)
 
 ## 💻 在线体验
@@ -54,12 +58,14 @@
 ## 🚀 安装
 
 ```perl
-npm i simple-code-inspector-plugin -D
+npm i simple-code-inspector-plugin@latest -D
 # or
-yarn add simple-code-inspector-plugin -D
+yarn add simple-code-inspector-plugin@latest -D
 # or
-pnpm add simple-code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin@latest -D
 ```
+
+只需要安装公开入口包 `simple-code-inspector-plugin`。内部的 `@simple-code-inspector/*` 子包会作为依赖自动安装，不需要手动添加。如果 lockfile 锁定了 `1.6.1`，请升级到 `1.6.2` 或更高版本。
 
 ## 🌈 使用
 

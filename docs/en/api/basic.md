@@ -1,5 +1,7 @@
 # Basic Configuration
 
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). This fork replaces direct IDE launching with copying the source code location to the system clipboard.
+
 The detailed parameter configuration for `codeInspectorPlugin` is shown below:
 
 ```typescript

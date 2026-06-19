@@ -2,6 +2,8 @@
 
 这页写给需要把 `simple-code-inspector-plugin` 接入已有项目的 AI 编码助手。
 
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。安装本 fork 时，应将它配置为“复制源码位置到剪贴板”的工具，而不是直接唤起 IDE 的工具。
+
 ## 事实信息
 
 - 包名：`simple-code-inspector-plugin`

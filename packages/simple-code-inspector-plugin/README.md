@@ -20,6 +20,10 @@
 
 Click the element on the page, it copies the source code location of the element to your clipboard.
 
+## Fork Notice
+
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). This fork keeps the DOM-to-source-location workflow, but replaces direct IDE launching with copying the source code location to the system clipboard.
+
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)
 
 ## 💻 Try it out online

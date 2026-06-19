@@ -1,5 +1,7 @@
 # 常见问题
 
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。阅读旧版 Code Inspector 说明时请注意：本 fork 会复制源码位置到剪贴板，而不是直接唤起 IDE。
+
 ## 是否需要手动区分生产/开发环境
 
 插件内部会根据打包工具的内部参数，自动识别当前是生产还是开发环境，仅在开发环境下生效，因此不需要用户手动区分生产和开发环境。

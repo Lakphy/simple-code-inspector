@@ -1,5 +1,7 @@
 # 💖 Sponsor
 
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). This fork's maintained behavior is clipboard-based source-location copying instead of direct IDE launching.
+
 ## Sponsor Methods
 
 Sponsoring this project can help the author create better . If you needed, you can contact the author to have your avatar added to the list of sponsors.

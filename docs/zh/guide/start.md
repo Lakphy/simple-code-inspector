@@ -2,6 +2,8 @@
 
 `simple-code-inspector-plugin` 支持在以 `webpack/vite/rspack/rsbuild/esbuild/farm/mako` 作为打包器的项目中使用，支持 `vue/react/preact/solid/qwik/svelte/astro/nextjs/nuxt/umijs` 等框架，请参考如下的接入教程。
 
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。本项目的核心区别是将原先直接唤起 IDE 的行为改为复制源码位置到剪贴板。
+
 ## 安装
 
 - 使用 npm 安装：

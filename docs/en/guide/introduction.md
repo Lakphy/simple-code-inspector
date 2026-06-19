@@ -2,6 +2,10 @@
 
 `simple-code-inspector-plugin` is a tool designed to enhance development efficiency based on `webpack/vite/rspack/nextjs/nuxt/umijs plugin`. By clicking on the DOM elements in your web page, it copies the corresponding source code location (e.g. `/src/App.tsx:12:3 <div>`) to your clipboard, ready to paste into your terminal or AI assistant.
 
+## Fork Notice
+
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). This fork keeps the DOM-to-source-location workflow, but replaces direct IDE launching with copying the source code location to the system clipboard.
+
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)
 
 ## Motive

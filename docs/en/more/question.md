@@ -1,5 +1,7 @@
 # Frequently Asked Questions
 
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). When reading older Code Inspector guidance, note that this fork copies source locations to the clipboard instead of launching an IDE directly.
+
 ## Do I need to manually distinguish between production/development environments?
 
 The plugin automatically detects whether it's in production or development environment based on the bundler's internal parameters. It only takes effect in the development environment, so users don't need to manually distinguish between production and development environments.

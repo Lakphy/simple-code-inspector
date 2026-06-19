@@ -6,6 +6,8 @@ This article introduces all the features provided by `simple-code-inspector-plug
 
 When you click a DOM element, `simple-code-inspector-plugin` copies its source code location to your clipboard, ready to paste into your terminal or AI assistant. The copy is performed in the Node.js layer (local dev servers usually lack clipboard permission in the browser), so it works reliably during local development.
 
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector); see the original [README](https://github.com/zh-lx/code-inspector#readme). Unlike upstream Code Inspector, this fork copies the location to the system clipboard instead of launching an IDE directly.
+
 You can customize the copied text via the [copyFormat](../api/advance.html#copyformat) parameter (default `{file}:{line}:{column} <{tag}>`):
 
 ```js

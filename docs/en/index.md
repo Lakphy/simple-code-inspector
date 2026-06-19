@@ -16,6 +16,12 @@ hero:
     - theme: alt
       text: Feedback
       link: /more/feedback
+    - theme: alt
+      text: Original Project
+      link: https://github.com/zh-lx/code-inspector
+    - theme: alt
+      text: Original README
+      link: https://github.com/zh-lx/code-inspector#readme
 
 features:
   - icon: 🚀
@@ -27,4 +33,7 @@ features:
   - icon: 🎨
     title: Strong Adaptability
     details: Supports usage in webpack/vite/rspack/nextjs/nuxt/umijs, and supports multiple frameworks such as Vue/React/Preact/Solid/Qwik/Svelte/Astro.
+  - icon: 📌
+    title: Forked from Code Inspector
+    details: Simple Code Inspector is forked from Code Inspector. It keeps the DOM-to-source-location workflow, but copies the location to the clipboard instead of launching an IDE directly.
 ---

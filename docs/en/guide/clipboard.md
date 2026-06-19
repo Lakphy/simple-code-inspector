@@ -2,6 +2,8 @@
 
 `simple-code-inspector-plugin` copies the clicked element's source code location to your system clipboard.
 
+This clipboard behavior is the main difference from upstream [Code Inspector](https://github.com/zh-lx/code-inspector). Simple Code Inspector is forked from that project; see the original [README](https://github.com/zh-lx/code-inspector#readme). Instead of launching an IDE directly, this fork writes the source code location to the system clipboard.
+
 ## How it works
 
 1. During compilation, a `data-insp-path` attribute (`file:line:column:tag`) is injected into your DOM elements.

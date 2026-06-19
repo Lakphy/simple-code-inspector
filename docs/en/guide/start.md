@@ -2,6 +2,8 @@
 
 `simple-code-inspector-plugin` supports projects using `webpack/vite/rspack/rsbuild/esbuild/farm/mako` as bundlers, and works with frameworks like `vue/react/preact/solid/qwik/svelte/astro/nextjs/nuxt/umijs`. Please refer to the following integration guide.
 
+Simple Code Inspector is forked from [Code Inspector](https://github.com/zh-lx/code-inspector). See the original project and its [README](https://github.com/zh-lx/code-inspector#readme). The key difference is that this fork copies the source code location to the clipboard instead of launching an IDE directly.
+
 ## Installation
 
 - Install using npm:

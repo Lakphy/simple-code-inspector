@@ -1,5 +1,7 @@
 # 💖 赞助
 
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。本 fork 当前维护的行为是复制源码位置到剪贴板，而不是直接唤起 IDE。
+
 ## 赞助方式
 
 赞助此项目可以帮助作者更好地创作，有需要可以联系作者将头像添加到赞助者列表中。

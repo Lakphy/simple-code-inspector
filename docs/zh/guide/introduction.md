@@ -2,6 +2,10 @@
 
 `simple-code-inspector-plugin` 是一款基于 `webpack/vite/rspack/nextjs/nuxt/umijs plugin` 的提升开发效率的工具，点击页面上的 DOM，它能够将 DOM 对应的源代码位置（如 `/src/App.tsx:12:3 <div>`）复制到剪贴板，方便粘贴到终端或 AI 助手中。
 
+## Fork 说明
+
+Simple Code Inspector 基于 [Code Inspector](https://github.com/zh-lx/code-inspector) fork 而来，原项目与原文说明见 [Code Inspector README](https://github.com/zh-lx/code-inspector#readme)。本项目保留 DOM 到源码位置的定位能力，但将原先直接唤起 IDE 的行为改为复制源码位置到系统剪贴板。
+
 ![code-inspector](https://cdn.jsdelivr.net/gh/zh-lx/static-img/code-inspector/demo.gif)
 
 ## 动机
