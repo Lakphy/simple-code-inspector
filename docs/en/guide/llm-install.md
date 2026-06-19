@@ -7,6 +7,8 @@ This page is written for AI coding agents that need to add `simple-code-inspecto
 - Package name: `simple-code-inspector-plugin`
 - Export name: `codeInspectorPlugin`
 - Install it as a development dependency.
+- Install only the public entry package. Do not add `@simple-code-inspector/*` packages directly; they are internal dependencies.
+- Use `latest` (`1.6.2` or later). If the target project's lockfile pins `1.6.1`, update it.
 - Add it only in the build configuration file. Do not import it from application source files.
 - The plugin copies a clicked DOM element's source code location to the system clipboard during local development.
 - Default copied text: `{file}:{line}:{column} <{tag}>`
@@ -18,15 +20,15 @@ This page is written for AI coding agents that need to add `simple-code-inspecto
 Choose the package manager from the existing lockfile.
 
 ```sh
-pnpm add simple-code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin@latest -D
 ```
 
 ```sh
-npm install simple-code-inspector-plugin -D
+npm install simple-code-inspector-plugin@latest -D
 ```
 
 ```sh
-yarn add simple-code-inspector-plugin -D
+yarn add simple-code-inspector-plugin@latest -D
 ```
 
 ## Bundler selection

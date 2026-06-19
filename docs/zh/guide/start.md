@@ -7,20 +7,22 @@
 - 使用 npm 安装：
 
 ```shell
-npm install simple-code-inspector-plugin -D
+npm install simple-code-inspector-plugin@latest -D
 ```
 
 - 使用 yarn 安装：
 
 ```shell
-yarn add simple-code-inspector-plugin -D
+yarn add simple-code-inspector-plugin@latest -D
 ```
 
 - 使用 pnpm 安装：
 
 ```shell
-pnpm add simple-code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin@latest -D
 ```
+
+只需要安装公开入口包 `simple-code-inspector-plugin`。内部的 `@simple-code-inspector/*` 子包会作为依赖自动安装，不需要手动添加。如果 lockfile 锁定了 `1.6.1`，请升级到 `1.6.2` 或更高版本。
 
 ## 配置
 

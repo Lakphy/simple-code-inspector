@@ -56,12 +56,14 @@ The following are which compilers and web frameworks we supported now:
 ## 🚀 Install
 
 ```perl
-npm i simple-code-inspector-plugin -D
+npm i simple-code-inspector-plugin@latest -D
 # or
-yarn add simple-code-inspector-plugin -D
+yarn add simple-code-inspector-plugin@latest -D
 # or
-pnpm add simple-code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin@latest -D
 ```
+
+Install only the public entry package `simple-code-inspector-plugin`. The internal `@simple-code-inspector/*` packages are installed automatically as dependencies. If your lockfile pins `1.6.1`, upgrade to `1.6.2` or later.
 
 ## 🌈 Usage
 

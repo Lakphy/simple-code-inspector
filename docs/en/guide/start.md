@@ -7,20 +7,22 @@
 - Install using npm:
 
 ```shell
-npm install simple-code-inspector-plugin -D
+npm install simple-code-inspector-plugin@latest -D
 ```
 
 - Install using yarn:
 
 ```shell
-yarn add simple-code-inspector-plugin -D
+yarn add simple-code-inspector-plugin@latest -D
 ```
 
 - Install using pnpm:
 
 ```shell
-pnpm add simple-code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin@latest -D
 ```
+
+Install only the public entry package `simple-code-inspector-plugin`. The internal `@simple-code-inspector/*` packages are installed automatically as dependencies. If your lockfile pins `1.6.1`, upgrade to `1.6.2` or later.
 
 ## Configuration
 

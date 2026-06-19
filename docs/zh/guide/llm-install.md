@@ -7,6 +7,8 @@
 - 包名：`simple-code-inspector-plugin`
 - 导出名：`codeInspectorPlugin`
 - 作为开发依赖安装。
+- 只安装公开入口包，不要直接添加 `@simple-code-inspector/*` 子包；这些子包会作为内部依赖自动安装。
+- 使用 `latest`（`1.6.2` 或更高版本）。如果目标项目 lockfile 锁定了 `1.6.1`，需要升级。
 - 只在构建配置文件中引入，不要在业务源码中引入。
 - 插件用于在本地开发时，将点击的 DOM 元素源码位置复制到系统剪贴板。
 - 默认复制文本：`{file}:{line}:{column} <{tag}>`
@@ -18,15 +20,15 @@
 根据项目已有 lockfile 选择包管理器。
 
 ```sh
-pnpm add simple-code-inspector-plugin -D
+pnpm add simple-code-inspector-plugin@latest -D
 ```
 
 ```sh
-npm install simple-code-inspector-plugin -D
+npm install simple-code-inspector-plugin@latest -D
 ```
 
 ```sh
-yarn add simple-code-inspector-plugin -D
+yarn add simple-code-inspector-plugin@latest -D
 ```
 
 ## 打包器选择
